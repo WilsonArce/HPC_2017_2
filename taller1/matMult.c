@@ -76,7 +76,7 @@ int main (int argc,char **argv)
 	  	fprintf(f3, "\n");
 	 	}
 
-		fclose(f1); fclose(f2);
+		fclose(f1); fclose(f2); fclose(f3);
 
 		/*liberacion de memoria*/
 		free(mat1); free(mat2);
