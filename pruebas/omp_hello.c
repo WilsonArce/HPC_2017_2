@@ -1,4 +1,4 @@
-:i_
+
 /******************************************************************************
 * FILE: omp_hello.c
 * DESCRIPTION:
@@ -24,7 +24,7 @@ int nthreads, tid;
   {
 
   /* Obtain thread number */
-  tid = omp_set_thread_num(12);
+  tid = omp_get_thread_num();
   printf("Hello World from thread = %d\n", tid);
 
   /* Only master thread does this */

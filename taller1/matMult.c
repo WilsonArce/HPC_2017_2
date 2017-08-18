@@ -1,5 +1,7 @@
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main (int argc,char **argv)
 {
@@ -8,8 +10,8 @@ int main (int argc,char **argv)
 	//variables para almacenar las dimensiones de las matrices
 	int m1Col, m1Row, m2Col, m2Row;
 
-	f1 = fopen("mat1.txt","r");
-	f2 = fopen("mat2.txt","r");
+	f1 = fopen("matg1.txt","r");
+	f2 = fopen("matg2.txt","r");
 	f3 = fopen("answer.txt","w");
 	
 	//lectura de dimensiones
@@ -58,6 +60,7 @@ int main (int argc,char **argv)
 		int a,b;/*variables para almacenar valores a multiplicar*/
 
 		/*ciclo para relizar la multiplicacion de matrices */
+		clock_t start = clock();
 		for (int i = 0; i < m1Row; i++) {
 	    for (int j = 0; j < m2Col; j++) {
 	   		int sum = 0;
@@ -75,6 +78,9 @@ int main (int argc,char **argv)
 
 	  	fprintf(f3, "\n");
 	 	}
+	 	clock_t end = clock();
+		float seconds = (float)(end - start) / CLOCKS_PER_SEC;
+		printf("Time: %f\n seconds",seconds);
 
 		fclose(f1); fclose(f2); fclose(f3);
 
