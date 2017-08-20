@@ -2,9 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "matGen.h"
 
-int main (int argc,char **argv)
+int main(int argc, char const *argv[])
 {
+
+	if(argc == 5){
+		genMat(atoi(argv[1]),atoi(argv[2]),atoi(argv[3]),atoi(argv[4]));
+	}
+
 	FILE *f1, *f2, *f3;
 
 	//variables para almacenar las dimensiones de las matrices
@@ -95,8 +101,12 @@ int main (int argc,char **argv)
 
 		/*INICIO MULTIPLICACIÓN CON HILOS*/
 
-		int	tid,nthreads,chunk,i,j,k;
+		fclose(f3);
+		f3 = fopen("answer.txt","w");
+		fprintf(f3, "%d\n", m1Row);
+		fprintf(f3, "%d\n", m2Col);
 
+		int	tid,nthreads,chunk,i,j,k;
 		//chunk = 10;
 
 		clock_t start2 = clock();
@@ -137,7 +147,7 @@ int main (int argc,char **argv)
 		free(mat1); free(mat2);
 
 	}else{
-		printf("Las matrices no se pueden multiplicar\n");
+		printf("The arrays can not be multiplied\n");
 	}
 
 	return 0;
