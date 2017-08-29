@@ -1,7 +1,7 @@
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h>
 #include "matGen.h"
 
 int main(int argc, char const *argv[])
@@ -15,6 +15,9 @@ int main(int argc, char const *argv[])
 
 	//variables para almacenar las dimensiones de las matrices
 	int m1Col, m1Row, m2Col, m2Row;
+
+	struct timeval start1, end1, start2, end2;
+  double elapsedTime1, elapsedTime2;
 
 
 	f1 = fopen("matg1.txt","r");
@@ -64,8 +67,6 @@ int main(int argc, char const *argv[])
 		fprintf(f3, "%d\n", m1Row);
 		fprintf(f3, "%d\n", m2Col);
 
-		int a,b;/*variables para almacenar valores a multiplicar*/
-
 		/*ciclo para relizar la multiplicacion de matrices*/
 
 		////////////////////////////////////////////////////////
@@ -73,15 +74,13 @@ int main(int argc, char const *argv[])
 		printf("\nMat 1 : %d x %d\n", m1Row, m1Col);
 		printf("Mat 2 : %d x %d\n", m2Row, m2Col);
 
-		/*INICIO MULTIPLICACION NORMAL*/
-		clock_t start1 = clock();
+		/*INICIO MULTIPLICACION SECUENCIAL*/
+		gettimeofday(&start1, NULL);//clock_t start1 = clock();
 		for (int i = 0; i < m1Row; i++) {
 	    for (int j = 0; j < m2Col; j++) {
 	   		int sum = 0;
 	      for (int k = 0; k < m1Col; k++) {
-	        a = mat1[i][k];
-	        b = mat2[k][j];
-	        sum += a * b;
+	        sum += mat1[i][k] * mat2[k][j];
 	      }
 	      fprintf(f3, "%d,", sum);
 	  	}
@@ -92,52 +91,62 @@ int main(int argc, char const *argv[])
 
 	  	fprintf(f3, "\n");
 	 	}
-	 	clock_t end1 = clock();
-		float seconds1 = (float)(end1 - start1) / CLOCKS_PER_SEC;
-		printf("Normal time: %f\n",seconds1);
-		/*FIN MULTIPLICACION NORMAL*/
+	 	gettimeofday(&end1, NULL);//clock_t end1 = clock();
+		elapsedTime1 = (double) (end1.tv_usec - start1.tv_usec) / 1000000 + 
+			(double) (end1.tv_sec - start1.tv_sec);
+		printf("Serial time: %f(s)\n",elapsedTime1);
+		/*FIN MULTIPLICACION SECUENCIAL*/
 
 		////////////////////////////////////////////////////////
 
-		/*INICIO MULTIPLICACIÓN CON HILOS*/
+		/*INICIO MULTIPLICACIÓN PARALELA*/
 
 		fclose(f3);
 		f3 = fopen("answer.txt","w");
 		fprintf(f3, "%d\n", m1Row);
 		fprintf(f3, "%d\n", m2Col);
 
-		int	tid,nthreads,chunk,i,j,k;
+		//clock_t start2 = clock();
+
+		int	tid,nthreads,chunk,i,j,k,sum;
 		//chunk = 10;
 
-		clock_t start2 = clock();
-		#pragma omp parallel
-		
-		tid = omp_get_thread_num();
-		nthreads = omp_get_num_threads();
-		chunk = m1Row / nthreads;
+		gettimeofday(&start2, NULL);
 
-		#pragma omp for
-		for (i = 0; i < m1Row; i++) {
-	    for (j = 0; j < m2Col; j++) {
-	   		int sum = 0;
-	      for (k = 0; k < m1Col; k++) {
-	        a = mat1[i][k];
-	        b = mat2[k][j];
-	        sum += a * b;
-	      }
-	      fprintf(f3, "%d,", sum);
-	  	}
-	  	/*devuelve una posicion al puntero del archivo resultado,
-	  	para no mostar la coma al final de la linea*/
-	  	fseek(f3, -1, SEEK_END);
+		#pragma omp parallel shared(mat1,mat2,nthreads,chunk) \
+			private(i,j,k,tid,sum) \
+			num_threads(4)
+		{
+			nthreads = omp_get_num_threads();
+			tid = omp_get_thread_num();
+			chunk = m1Row / nthreads;
+			if (tid == 0){
+		    printf("Number of threads = %d\n", nthreads);
+	    }
 
-	  	fprintf(f3, "\n");
-	 	}
+			#pragma omp for schedule(static,chunk)
+			for (i = 0; i < m1Row; i++) {
+				//#pragma omp for schedule (static,chunk)
+		    for (j = 0; j < m2Col; j++) {
+		   		sum = 0;
+		      for (k = 0; k < m1Col; k++) {
+		        sum += mat1[i][k] * mat2[k][j];
+		        //printf("Thread %d: %d,%d,%d ans: %d\n",tid,i,j,k,sum);
+		      }
+		      fprintf(f3, "%d,", sum);
+		  	}
+		  	/*devuelve una posicion al puntero del archivo resultado,
+		  	para no mostar la coma al final de la linea*/
+		  	fseek(f3, -1, SEEK_END);
+		  	fprintf(f3, "\n");
+		 	}
+		}
 
-	 	clock_t end2 = clock();
-		float seconds2 = (float)(end2 - start2) / CLOCKS_PER_SEC;
-		printf("Threading time: %f\n\n",seconds2);
-		/*FIN MULTIPLICACION CON HILOS*/
+	 	gettimeofday(&end2, NULL);//clock_t end2 = clock();
+		elapsedTime2 = (double) (end2.tv_usec - start2.tv_usec) / 1000000 + 
+			(double) (end2.tv_sec - start2.tv_sec);
+		printf("Parallel time: %f(s) \n\n",elapsedTime2);
+		/*FIN MULTIPLICACION PARALELA*/
 
 		///////////////////////////////////////////////////////
 
