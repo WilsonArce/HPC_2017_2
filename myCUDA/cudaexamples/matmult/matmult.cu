@@ -1,4 +1,4 @@
-git #include <stdio.h>
+#include <stdio.h>
 #include <time.h>
 #define N 512
 
