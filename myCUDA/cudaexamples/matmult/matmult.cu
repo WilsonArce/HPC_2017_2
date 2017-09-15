@@ -56,7 +56,7 @@ int main() {
 
   //int threadsPerBlock(16);
   //int numBlocks(N/threadsPerBlock);
-  dim3 threadsPerBlock(16, 16);
+  dim3 threadsPerBlock(32, 32);
  	dim3 numBlocks(N/threadsPerBlock.x, N/threadsPerBlock.y);
   
 	clock_t startGPU  = clock();
