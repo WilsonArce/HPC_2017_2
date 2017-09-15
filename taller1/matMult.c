@@ -59,6 +59,9 @@ int main (int argc,char **argv)
 
 		int a,b;/*variables para almacenar valores a multiplicar*/
 
+		printf("\nMat 1 : %d x %d\n", m1Row, m1Col);
+		printf("Mat 2 : %d x %d\n", m2Row, m2Col);
+
 		/*ciclo para relizar la multiplicacion de matrices */
 		clock_t start = clock();
 		for (int i = 0; i < m1Row; i++) {
