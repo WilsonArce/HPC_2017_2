@@ -1,6 +1,6 @@
-#include <stdio.h>
+git #include <stdio.h>
 #include <time.h>
-#define N 1024
+#define N 512
 
 void Matriz_CPU_Mult(int A[N][N], int B[N][N], int C[N][N]) {
 	int n,m;
