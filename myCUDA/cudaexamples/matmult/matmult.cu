@@ -75,7 +75,7 @@ int main() {
 
   // tiempos de ejecucion
   printf("tiempo GPU = %f s",timeGPU);
-	printf("\ntiempo CPU = %f s",timeCPU);
+	printf("\ntiempo CPU = %f s\n",timeCPU);
   
   return 0;
 }
