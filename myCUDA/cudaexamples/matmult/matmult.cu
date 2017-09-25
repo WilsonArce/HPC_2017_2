@@ -30,7 +30,7 @@ __global__ void Matriz_GPU_Mult(int *a, int *b, int *c) {
 }
 
 int main() {
-  double timeGPU, timeCPU;
+  double timeGPU; //, timeCPU;
 	int A[N][N], B[N][N], C[N][N];
  	int *d_a, *d_b, *d_c;
  	int cont,i,j;
@@ -65,17 +65,19 @@ int main() {
   
   cudaMemcpy(C, d_c, size, cudaMemcpyDeviceToHost);
 	
+  /*
   clock_t startCPU = clock();
   Matriz_CPU_Mult(A, B, C);
 	timeCPU = ((double)(clock() - startCPU))/CLOCKS_PER_SEC;
-  
+  */
+
   cudaFree(d_a);
  	cudaFree(d_b);
  	cudaFree(d_c);
 
   // tiempos de ejecucion
   printf("tiempo GPU = %f s",timeGPU);
-	printf("\ntiempo CPU = %f s\n",timeCPU);
+	//printf("\ntiempo CPU = %f s\n",timeCPU);
   
   return 0;
 }
