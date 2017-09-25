@@ -46,13 +46,16 @@ int main(){
   clock_t startGPU  = clock();
   gpu_matrixMul<<<dim3((MWIDTH/(MTILE*BWIDTH)), (MWIDTH/(MTILE*BWIDTH))), dim3(BWIDTH,BWIDTH)>>>(d_a, d_b, d_c, MWIDTH, MTILE);
   timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
-  
+
   cudaMemcpy(h_c, d_c, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyDeviceToHost);
 
   printf("tiempo GPU = %f s\n",timeGPU);
 
+  /*
   for (int i=0; i < MWIDTH*MWIDTH; i++)
     if (h_c[i] != MWIDTH) {printf("Mismatch at offset %d, was: %d, should be: %d\n", i, h_c[i], MWIDTH); return 1;}
   printf("Success!\n");
+  */
+
   return 0;
 }
