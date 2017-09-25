@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #define MWIDTH 4096
 #define MTILE 16
 #define BWIDTH 16
@@ -24,7 +25,7 @@ __global__ void gpu_matrixMul(int *a, int *b, int *c, int Width, int tile_width)
 
 
 int main(){
-
+  double timeGPU;
   int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
   h_a = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
   h_b = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
@@ -42,8 +43,14 @@ int main(){
   cudaMemcpy(d_b, h_b, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyHostToDevice);
   cudaMemset(d_c, 0, MWIDTH*MWIDTH*sizeof(int));
 
+  clock_t startGPU  = clock();
   gpu_matrixMul<<<dim3((MWIDTH/(MTILE*BWIDTH)), (MWIDTH/(MTILE*BWIDTH))), dim3(BWIDTH,BWIDTH)>>>(d_a, d_b, d_c, MWIDTH, MTILE);
+  timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
+  
   cudaMemcpy(h_c, d_c, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyDeviceToHost);
+
+  printf("tiempo GPU = %f s\n",timeGPU);
+
   for (int i=0; i < MWIDTH*MWIDTH; i++)
     if (h_c[i] != MWIDTH) {printf("Mismatch at offset %d, was: %d, should be: %d\n", i, h_c[i], MWIDTH); return 1;}
   printf("Success!\n");
