@@ -2,6 +2,7 @@
 #include <time.h>
 #define N 512
 
+/*
 void Matriz_CPU_Mult(int A[N][N], int B[N][N], int C[N][N]) {
 	int n,m;
 	for (int i = 0; i < N; i++) {
@@ -16,6 +17,7 @@ void Matriz_CPU_Mult(int A[N][N], int B[N][N], int C[N][N]) {
   	}
  	}
 }
+*/
 
 __global__ void Matriz_GPU_Mult(int *a, int *b, int *c) {
 	int k, sum = 0;
@@ -57,7 +59,7 @@ int main() {
   //int threadsPerBlock(16);
   //int numBlocks(N/threadsPerBlock);
   dim3 threadsPerBlock(32, 32);
- 	dim3 numBlocks(N/threadsPerBlock.x, N/threadsPerBlock.y);
+ 	dim3 numBlocks((int)ceil((float)N/threadsPerBlock.x), (int)ceil((float)N/threadsPerBlock.y));
   
 	clock_t startGPU  = clock();
   Matriz_GPU_Mult<<<numBlocks, threadsPerBlock>>>(d_a, d_b, d_c);
