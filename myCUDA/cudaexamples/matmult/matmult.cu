@@ -31,7 +31,7 @@ __global__ void Matriz_GPU_Mult(int *a, int *b, int *c) {
 
 int main() {
   double timeGPU; //, timeCPU;
-	int *h_a, *h_b, *h_c;
+	int **h_a, **h_b, **h_c;
  	int *d_a, *d_b, *d_c;
  	int cont,i,j;
 
