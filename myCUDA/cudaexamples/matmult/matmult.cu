@@ -37,9 +37,9 @@ int main() {
 
   int size = N * sizeof(int);
 
-  h_a = (int*)malloc(size);
-  h_b = (int*)malloc(size);
-  h_c = (int*)malloc(size);
+  h_a = (int**)malloc(size);
+  h_b = (int**)malloc(size);
+  h_c = (int**)malloc(size);
 
   cudaMalloc((void **) &d_a, size);
   cudaMalloc((void **) &d_b, size);
