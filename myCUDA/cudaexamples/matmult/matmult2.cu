@@ -45,9 +45,9 @@ int main(){
 
   clock_t startGPU  = clock();
   gpu_matrixMul<<<dim3((MWIDTH/(MTILE*BWIDTH)), (MWIDTH/(MTILE*BWIDTH))), dim3(BWIDTH,BWIDTH)>>>(d_a, d_b, d_c, MWIDTH, MTILE);
-  timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
   cudaMemcpy(h_c, d_c, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyDeviceToHost);
+  timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
   printf("tiempo GPU = %f s\n",timeGPU);
 
