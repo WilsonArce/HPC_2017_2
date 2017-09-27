@@ -36,9 +36,9 @@ int main(int argc, char const *argv[])
  	cudaMalloc((void **) &d_b, bytes);
  	cudaMalloc((void **) &d_c, bytes);
 
- 	for (i = 0; i < n; i++) {
+ 	for (int i = 0; i < n; i++) {
   	cont = 0;
-  	for (j = 0; j < n; j++) {
+  	for (int j = 0; j < n; j++) {
    		h_a[i][j] = cont * n;
    		h_b[i][j] = cont * n;
    		cont++;
