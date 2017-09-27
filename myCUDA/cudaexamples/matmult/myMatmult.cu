@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
  	dim3 numBlocks((int)ceil((float)n/x_threads), (int)ceil((float)n/y_threads));
 
  	clock_t startGPU  = clock();
- 	gpu_matMult<<<numBlocks, thredsPerBlock>>>(d_a, d_b, d_c, n);
+ 	gpu_matMult<<<numBlocks, thredsPerBlock>>>(d_a, d_b, d_c);
 
  	cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost);
  	timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
