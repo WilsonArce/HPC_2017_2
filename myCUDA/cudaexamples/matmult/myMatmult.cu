@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#define n 1024
+#define n 4096
 #define x_threads 8
 #define y_threads 8
 
