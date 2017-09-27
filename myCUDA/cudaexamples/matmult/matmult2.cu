@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#define MWIDTH 4096
+#define MWIDTH 1024
 #define MTILE 16
 #define BWIDTH 16
 
