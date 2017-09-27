@@ -4,7 +4,7 @@
 #define x_threads 8
 #define y_threads 8
 
-__global__ void gpu_matMult(int *a, int *b, int *c, int n){
+__global__ void gpu_matMult(int *a, int *b, int *c){
 	int k, sum = 0;
 	int i = blockDim.x * blockIdx.x + threadIdx.x;
 	int j = blockDim.y * blockIdx.y + threadIdx.y;
