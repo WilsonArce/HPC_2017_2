@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=matmult
 #SBATCH --output=res_matmult
-#SBATCH --ntasks=4
-#SBATCH --nodes=4
+#SBATCH --ntasks=5
+#SBATCH --nodes=5
 #SBATCH --gres=gpu:1
 
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
