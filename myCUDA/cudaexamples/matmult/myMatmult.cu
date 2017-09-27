@@ -54,6 +54,10 @@ int main(int argc, char const *argv[])
  	timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
  	printf("tiempo GPU = %f s\n",timeGPU);
+	
+	for(int i = 0; i < (sizeof(h_c)/sizeof(int))){
+		printf("%d ,", h_c[i]);
+	}
 
 	return 0;
 }
