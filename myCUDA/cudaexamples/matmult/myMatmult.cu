@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
  	cudaMalloc((void **) &d_c, bytes);
 
  	for (int i = 0; i < n; i++) {
-  	in cont = 0;
+  	int cont = 0;
   	for (int j = 0; j < n; j++) {
    		h_a[i][j] = cont * n;
    		h_b[i][j] = cont * n;
