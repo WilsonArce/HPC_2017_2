@@ -7,7 +7,6 @@
 #define y_threads 8
 
 __global__ 	void gpu_matMult(int *a, int *b, int *c, int n){
-
 	int k, sum = 0;
 	int i = blockDim.x * blockIdx.x + threadIdx.x;
 	int j = blockDim.y * blockIdx.y + threadIdx.y;
@@ -18,7 +17,6 @@ __global__ 	void gpu_matMult(int *a, int *b, int *c, int n){
     }
     c[j * n + i] = sum;
   }
-
 }
 
 int main(int argc, char const *argv[])
@@ -37,7 +35,7 @@ int main(int argc, char const *argv[])
  	cudaMalloc((void **) &d_c, bytes);
 
  	for (int i = 0; i < n; i++) {
-  	cont = 0;
+  	in cont = 0;
   	for (int j = 0; j < n; j++) {
    		h_a[i][j] = cont * n;
    		h_b[i][j] = cont * n;
