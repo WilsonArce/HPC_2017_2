@@ -28,9 +28,9 @@ int main(int argc, char const *argv[])
 
 	double timeGPU;
   int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
-  h_a = (int **)malloc(bytes);
-  h_b = (int **)malloc(bytes);
-  h_c = (int **)malloc(bytes);
+  h_a = (int *)malloc(bytes);
+  h_b = (int *)malloc(bytes);
+  h_c = (int *)malloc(bytes);
 
   cudaMalloc((void **) &d_a, bytes);
  	cudaMalloc((void **) &d_b, bytes);
