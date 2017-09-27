@@ -1,17 +1,15 @@
 #include <stdio.h>
 #include <time.h>
-
 #define n 1024
-
 #define x_threads 8
 #define y_threads 8
 
-__global__ 	void gpu_matMult(int *a, int *b, int *c, int n){
+__global__ void gpu_matMult(int *a, int *b, int *c, int n){
 	int k, sum = 0;
 	int i = blockDim.x * blockIdx.x + threadIdx.x;
 	int j = blockDim.y * blockIdx.y + threadIdx.y;
 
-	if (i < n && j < n) {
+	if (i < n && j < n){
     for (k = 0; k < n; k++) {
       sum += a[j * n + k] * b[k * n + i];
     }
