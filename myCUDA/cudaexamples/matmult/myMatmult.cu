@@ -35,8 +35,8 @@ int main(int argc, char const *argv[])
  	for (int i = 0; i < n; i++) {
   	int cont = 0;
   	for (int j = 0; j < n; j++) {
-   		h_a[i][j] = cont * n;
-   		h_b[i][j] = cont * n;
+   		h_a[i] = cont * n;
+   		h_b[i] = cont * n;
    		cont++;
   	}
   }
