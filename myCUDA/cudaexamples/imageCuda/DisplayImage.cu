@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include <opencv2/opencv.hpp>
+#include <time.h>
 
 using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv )
 {
-    if ( argc != 2 )
+	if ( argc != 2 )
     {
         printf("usage: DisplayImage.out <Image_Path>\n");
         return -1;
@@ -51,7 +51,7 @@ int main(int argc, char** argv )
 
     //imshow("Display Image", grad);
 
-    cout << image.size() << endl;
+    cout << grad.size() << endl;
 
     //waitKey(0);
 
