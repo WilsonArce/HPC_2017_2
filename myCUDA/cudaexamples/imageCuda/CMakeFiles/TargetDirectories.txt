@@ -1,3 +1,0 @@
-/home/users/wdarce/HPC_2017_2/myCUDA/cudaexamples/imageCuda/CMakeFiles/edit_cache.dir
-/home/users/wdarce/HPC_2017_2/myCUDA/cudaexamples/imageCuda/CMakeFiles/rebuild_cache.dir
-/home/users/wdarce/HPC_2017_2/myCUDA/cudaexamples/imageCuda/CMakeFiles/DisplayImage.dir
