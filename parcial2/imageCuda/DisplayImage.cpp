@@ -24,7 +24,7 @@ int main(int argc, char** argv )
   //imshow("Display Image", image);
 
   imwrite("lena_out.jpg", image);
-  cout << image << endl;
+  cout << image.size(); << endl;
 
   //waitKey(0);
 
