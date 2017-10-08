@@ -22,7 +22,7 @@ int main(int argc, char** argv )
     //namedWindow("Display Image", WINDOW_AUTOSIZE );
     //imshow("Display Image", image);
 
-		imwrite("lenal_out.jpg", image);
+		imwrite("lena_out.jpg", image);
 
     //waitKey(0);
 
