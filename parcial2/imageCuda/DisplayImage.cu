@@ -66,9 +66,9 @@ int main(int argc, char** argv )
   cudaMalloc(&d_c, MWIDTH*MWIDTH*sizeof(int));
 
   for (int i = 0; i < MWIDTH*MWIDTH; i++){
-    h_a[i] = 100 * i;
-    h_b[i] = 100 * i;
-    h_c[i] = 100 * i;
+    h_a[i] = 654 * i;
+    h_b[i] = 654 * i;
+    h_c[i] = 654 * i;
   }
 
   cudaMemcpy(d_a, h_a, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyHostToDevice);
