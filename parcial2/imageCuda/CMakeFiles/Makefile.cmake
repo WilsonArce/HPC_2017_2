@@ -10,6 +10,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.5.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeSystem.cmake"
+  "CMakeFiles/DisplayImage_cu.dir/DisplayImage_cu_generated_DisplayImage.cu.o.depend"
   "CMakeLists.txt"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
@@ -27,6 +28,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.5/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.5/Modules/Compiler/GNU.cmake"
   "/usr/share/cmake-3.5/Modules/FindCUDA.cmake"
+  "/usr/share/cmake-3.5/Modules/FindCUDA/run_nvcc.cmake"
   "/usr/share/cmake-3.5/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/share/cmake-3.5/Modules/FindPackageMessage.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/Linux-GNU-C.cmake"
@@ -44,10 +46,11 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "CMakeFiles/DisplayImage_cu.dir/DisplayImage_cu_generated_DisplayImage.cu.o.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/DisplayImage.dir/DependInfo.cmake"
+  "CMakeFiles/DisplayImage_cu.dir/DependInfo.cmake"
   )

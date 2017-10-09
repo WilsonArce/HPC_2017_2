@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/users/wdarce/HPC_2017_2/parcial2/imageCuda
 CMAKE_BINARY_DIR = /home/users/wdarce/HPC_2017_2/parcial2/imageCuda
 
 #=============================================================================
-# Target rules for target CMakeFiles/DisplayImage.dir
+# Target rules for target CMakeFiles/DisplayImage_cu.dir
 
 # All Build rule for target.
-CMakeFiles/DisplayImage.dir/all:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/depend
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles --progress-num=1,2 "Built target DisplayImage"
-.PHONY : CMakeFiles/DisplayImage.dir/all
+CMakeFiles/DisplayImage_cu.dir/all:
+	$(MAKE) -f CMakeFiles/DisplayImage_cu.dir/build.make CMakeFiles/DisplayImage_cu.dir/depend
+	$(MAKE) -f CMakeFiles/DisplayImage_cu.dir/build.make CMakeFiles/DisplayImage_cu.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles --progress-num=1,2 "Built target DisplayImage_cu"
+.PHONY : CMakeFiles/DisplayImage_cu.dir/all
 
 # Include target in all.
-all: CMakeFiles/DisplayImage.dir/all
+all: CMakeFiles/DisplayImage_cu.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/DisplayImage.dir/rule: cmake_check_build_system
+CMakeFiles/DisplayImage_cu.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/DisplayImage.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/DisplayImage_cu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles 0
-.PHONY : CMakeFiles/DisplayImage.dir/rule
+.PHONY : CMakeFiles/DisplayImage_cu.dir/rule
 
 # Convenience name for target.
-DisplayImage: CMakeFiles/DisplayImage.dir/rule
+DisplayImage_cu: CMakeFiles/DisplayImage_cu.dir/rule
 
-.PHONY : DisplayImage
-
-# clean rule for target.
-CMakeFiles/DisplayImage.dir/clean:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/clean
-.PHONY : CMakeFiles/DisplayImage.dir/clean
+.PHONY : DisplayImage_cu
 
 # clean rule for target.
-clean: CMakeFiles/DisplayImage.dir/clean
+CMakeFiles/DisplayImage_cu.dir/clean:
+	$(MAKE) -f CMakeFiles/DisplayImage_cu.dir/build.make CMakeFiles/DisplayImage_cu.dir/clean
+.PHONY : CMakeFiles/DisplayImage_cu.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/DisplayImage_cu.dir/clean
 
 .PHONY : clean
 

@@ -111,44 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DisplayImage
+# Target rules for targets named DisplayImage_cu
 
 # Build rule for target.
-DisplayImage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DisplayImage
-.PHONY : DisplayImage
+DisplayImage_cu: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 DisplayImage_cu
+.PHONY : DisplayImage_cu
 
 # fast build rule for target.
-DisplayImage/fast:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/build
-.PHONY : DisplayImage/fast
-
-DisplayImage.o: DisplayImage.cpp.o
-
-.PHONY : DisplayImage.o
-
-# target to build an object file
-DisplayImage.cpp.o:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o
-.PHONY : DisplayImage.cpp.o
-
-DisplayImage.i: DisplayImage.cpp.i
-
-.PHONY : DisplayImage.i
-
-# target to preprocess a source file
-DisplayImage.cpp.i:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.i
-.PHONY : DisplayImage.cpp.i
-
-DisplayImage.s: DisplayImage.cpp.s
-
-.PHONY : DisplayImage.s
-
-# target to generate assembly for a file
-DisplayImage.cpp.s:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.s
-.PHONY : DisplayImage.cpp.s
+DisplayImage_cu/fast:
+	$(MAKE) -f CMakeFiles/DisplayImage_cu.dir/build.make CMakeFiles/DisplayImage_cu.dir/build
+.PHONY : DisplayImage_cu/fast
 
 # Help Target
 help:
@@ -158,10 +131,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... DisplayImage"
-	@echo "... DisplayImage.o"
-	@echo "... DisplayImage.i"
-	@echo "... DisplayImage.s"
+	@echo "... DisplayImage_cu"
 .PHONY : help
 
 

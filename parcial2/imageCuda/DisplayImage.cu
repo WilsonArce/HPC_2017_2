@@ -18,9 +18,9 @@ __global__ void gpu_matrixMul(int *a, int *b, int *c, int n){
 
   for(row = i; row < n; row++){
     for(col = j; col < n; col++){
-      float sum = 0;
+      int sum = 0;
       for(int k = 0; k < n; k++){
-        sum += a[row * n + k]*b[k * n + col];
+        sum += a[row * n + k] * b[k * n + col];
       }
       c[row * n + col] = sum;
     }
@@ -78,12 +78,13 @@ int main(int argc, char** argv )
 
   clock_t startGPU  = clock();
   gpu_matrixMul<<<numBlocks, threadsPerBlock>>>(d_a, d_b, d_c, N);
+  cudaDeviceSynchronize();
 
   cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost);
   timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
   printf("tiempo GPU = %f s\n",timeGPU);
-  cout << sizeof(h_c)/sizeof(int) << endl;
+  cout << d_c[8] << endl;
 
 /*
   if ( argc != 2 )
