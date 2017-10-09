@@ -8,7 +8,7 @@ using namespace std;
 __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int cols, int rows){
   int row = blockIdx.y * blockDim.y + threadIdx.y;
   int col = blockIdx.x * blockDim.x + threadIdx.x;
-  float r,g,b;
+  unsigned char = r,g,b;
   if(row < rows && col < cols){
     r = imgIn[(row * cols + col) * 3 + 2];
     g = imgIn[(row * cols + col) * 3 + 1];
@@ -61,7 +61,7 @@ int main(int argc, char** argv )
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
   Mat imageOut;
-  //imageOut.create(rows, cols, CV_8UC3);
+  imageOut.create(rows, cols, CV_8UC3);
   imageOut.data = h_imageOut;
 
   //printf("%d\n", imageOut.size().width);
