@@ -7,7 +7,7 @@ using namespace std;
 
 #define chSize 3
 
-#define N 512
+#define N 1024
 
 __global__ void Matriz_GPU_Mult(double *a, double *b, double *c) {
 	int k, sum = 0;
