@@ -13,12 +13,14 @@ __global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
 
   float r,g,b;
 
+  printf("%d,%d", tidx, tidy);
+
   for(int row = tidy; row < rows; row++){
     for(int col = tidx; col < cols; col += chSize){
       r = A[row * cols + col];
       g = A[row * cols + col + 1];
       b = A[row * cols + col + 2];
-      printf("%d,%d", tidx, tidy);
+      
       for(int k = chSize - 1; k >= 0; k--){
         B[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
       }
@@ -94,7 +96,7 @@ int main(int argc, char** argv )
   */
   //imwrite("lena_out.jpg", img);
 
-  //cout << h_b[550] << endl;
+  //cout << h_b[0] << endl;
 
   //waitKey(0);
 
