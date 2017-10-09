@@ -53,8 +53,8 @@ int main(int argc, char** argv )
   h_a = (int *)malloc(img_size * sizeof(int));
   h_b = (float *)malloc(img_size * sizeof(float));
 
-  cudaMalloc((void *) &d_a, img_size * sizeof(int));
-  cudaMalloc((void *) &d_b, img_size * sizeof(float));
+  cudaMalloc((void **) &d_a, img_size * sizeof(int));
+  cudaMalloc((void **) &d_b, img_size * sizeof(float));
 
   cudaMemcpy(d_a, h_a, img_size * sizeof(int), cudaMemcpyHostToDevice);
 
