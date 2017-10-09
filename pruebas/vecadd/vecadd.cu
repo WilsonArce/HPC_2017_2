@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
- 
+
 // CUDA kernel. Each thread takes care of one element of c
 __global__ void vecAdd(double *a, double *b, double *c, int n)
 {
@@ -48,8 +48,8 @@ int main( int argc, char* argv[] )
     int i;
     // Initialize vectors on host
     for( i = 0; i < n; i++ ) {
-        h_a[i] = sin(i)*sin(i);
-        h_b[i] = cos(i)*cos(i);
+        h_a[i] = i;
+        h_b[i] = i+1;
     }
  
     // Copy host vectors to device
@@ -75,6 +75,8 @@ int main( int argc, char* argv[] )
     for(i=0; i<n; i++)
         sum += h_c[i];
     printf("final result: %f\n", sum/n);
+    printf("h_c[10] = %f\n", h_c[10]);
+
  
     // Release device memory
     cudaFree(d_a);
