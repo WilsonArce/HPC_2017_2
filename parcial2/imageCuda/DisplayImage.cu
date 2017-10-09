@@ -7,17 +7,17 @@ using namespace std;
 
 #define chSize 3
 
-__global__ void gpuGrayScale(int *a, int *b, int cols, int rows){
+__global__ void gpuGrayScale(int *a, float *b, int cols, int rows){
   int tidx = (blockDim.x * blockIdx.x + threadIdx.x) + chSize;
   int tidy = blockDim.y * blockIdx.y + threadIdx.y;
 
-  int r,g,b;
+  float r,g,b;
 
   for(int row = tidy; row < rows; row++){
     for(int col = tidx; col < cols; col + chSize){
-      r = a[row * cols + j];
-      g = a[row * cols + j + 1];
-      b = a[row * cols + j + 2];
+      r = a[row * cols + col];
+      g = a[row * cols + col + 1];
+      b = a[row * cols + col + 2];
       for(int k = chSize - 1; k >= 0; k--){
         b[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
       }
@@ -46,6 +46,8 @@ int main(int argc, char** argv )
   //imshow("Display Image", image);
   
   Mat img = image;
+
+  /*
   float r,g,b;
   for(int y=0;y<image.rows;y++){
     for(int x=0;x<image.cols;x++){
@@ -65,7 +67,7 @@ int main(int argc, char** argv )
       img.at<Vec3b>(Point(x,y)) = color;
     }
   }
-
+  */
   imwrite("lena_out.jpg", img);
 
   //cout << image << endl;
