@@ -4,8 +4,24 @@
 using namespace cv;
 using namespace std;
 
-#define matOpCol 3
-#define matOpRow 3
+#define chSize 3
+
+__global__ void gpuGrayScale(int *a, int *b, int cols, int rows){
+  int tidx = (blockDim.x * blockIdx.x + threadIdx.x) + chSize;
+  int tidy = blockDim.y * blockIdx.y + threadIdx.y;
+
+  for(int row = tidy; row < rows; row++){
+    for(int col = tidx; col < cols; col + chSize){
+      r = a[row * cols + j];
+      g = a[row * cols + j + 1];
+      b = a[row * cols + j + 2];
+      for(int k = chSize - 1; k >= 0; k--){
+        b[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
+      }
+    }
+  }
+
+}
 
 int main(int argc, char** argv )
 {
