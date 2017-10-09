@@ -18,7 +18,7 @@ __global__ void gpu_matrixMul(int *a, int *b, int *c, int Width, int tile_width)
   int start_col = (blockDim.x*blockIdx.x + threadIdx.x)*tile_width;
   int end_col = start_col + tile_width;
 
-  printf("Im on device");
+  printf("%d", end_row);
 
   for (int row = start_row; row < end_row; row++) {
     for(int col = start_col; col < end_col; col++) {
@@ -66,9 +66,9 @@ int main(int argc, char** argv )
   cudaMalloc(&d_c, MWIDTH*MWIDTH*sizeof(int));
 
   for (int i = 0; i < MWIDTH*MWIDTH; i++){
-    h_a[i] = 55 * i;
-    h_b[i] = 55 * i;
-    h_c[i] = 55 * i;
+    h_a[i] = 100 * i;
+    h_b[i] = 100 * i;
+    h_c[i] = 100 * i;
   }
 
   cudaMemcpy(d_a, h_a, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyHostToDevice);
