@@ -18,7 +18,7 @@ __global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
       r = A[row * cols + col];
       g = A[row * cols + col + 1];
       b = A[row * cols + col + 2];
-      printf("%d", B[0]);
+      printf("%d,%d", tidx, tidy);
       for(int k = chSize - 1; k >= 0; k--){
         B[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
       }
@@ -60,7 +60,7 @@ int main(int argc, char** argv )
   dim3 numBlocks((int)ceil((float)image.cols/threadsPerBlock.x), (int)ceil((float)image.rows/threadsPerBlock.y));
 
   gpuGrayScale<<<numBlocks, threadsPerBlock>>>(d_a, d_b, image.cols, image.rows);
-
+  cout << "im here" << endl;
   cudaMemcpy(h_b, d_b, img_size, cudaMemcpyDeviceToHost);
 
   cudaFree(d_a);
@@ -94,7 +94,7 @@ int main(int argc, char** argv )
   */
   //imwrite("lena_out.jpg", img);
 
-  cout << h_b[550] << endl;
+  //cout << h_b[550] << endl;
 
   //waitKey(0);
 
