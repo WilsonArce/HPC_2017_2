@@ -66,7 +66,7 @@ int main(int argc, char** argv )
   for (int i = 0; i < MWIDTH*MWIDTH; i++) {
     h_a[i] = 9;
     h_b[i] = 9;
-    h_c[i] = 0;
+    h_c[i] = 9;
   }
 
   cudaMemcpy(d_a, h_a, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyHostToDevice);
