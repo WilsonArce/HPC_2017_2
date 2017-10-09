@@ -25,8 +25,10 @@ int main(int argc, char** argv )
 {
 
   unsigned char *imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
+  char* imageName = argv[1];
+
   Mat image;
-  image = imread( argv[1], 1 );
+  image = imread( imageName, 1 );
   
   if ( argc != 2 )
   {
