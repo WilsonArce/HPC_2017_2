@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include <opencv2/opencv.hpp>
 
 using namespace cv;
 using namespace std;
@@ -43,7 +44,7 @@ int main(int argc, char** argv )
   }
   //namedWindow("Display Image", WINDOW_AUTOSIZE );
   //imshow("Display Image", image);
-
+  
   Mat img = image;
   float r,g,b;
   for(int y=0;y<image.rows;y++){
