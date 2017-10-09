@@ -48,15 +48,15 @@ int main(int argc, char** argv )
 
   int *h_a, *d_a;
   float *h_b, *d_b;
-  int img_size = image.rows * image.cols;
+  //int img_size = image.rows * image.cols;
 
   h_a = (int *)malloc(img_size * sizeof(int));
   h_b = (float *)malloc(img_size * sizeof(float));
 
-  cudaMalloc(&d_a, img_size * sizeof(int));
-  cudaMalloc(&d_b, img_size * sizeof(float));
+  cudaMalloc((void *) &d_a, img_size * sizeof(int));
+  cudaMalloc((void *) &d_b, img_size * sizeof(float));
 
-  cdaMemcpy(d_a, h_a, img_size * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMemcpy(d_a, h_a, img_size * sizeof(int), cudaMemcpyHostToDevice);
 
   dim3 threadsPerBlock(32, 32);
   dim3 numBlocks((int)ceil((float)image.cols/threadsPerBlock.x), (int)ceil((float)image.rows/threadsPerBlock.y));
