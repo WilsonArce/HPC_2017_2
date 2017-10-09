@@ -14,10 +14,12 @@ __global__ void gpu_matrixMul(int *a, int *b, int *c, int n){
   int i = blockDim.y * blockIdx.y + threadIdx.y;
   int j = blockDim.x * blockIdx.x + threadIdx.x;
 
-  for ( row = i; row < n; row++) {
-    for( col = j; col < n; col++) {
+  int row, col;
+
+  for(row = i; row < n; row++){
+    for(col = j; col < n; col++){
       float sum = 0;
-      for (int k = 0; k < n; k++) {
+      for(int k = 0; k < n; k++){
         sum += a[row * n + k]*b[k * n + col];
       }
       c[row * n + col] = sum;
@@ -53,13 +55,13 @@ int main(int argc, char** argv )
   double timeGPU;
   int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
 
-  size_t = bytes = n * n sizeof(int);
+  size_t  bytes = N * N sizeof(int);
 
   h_a = (int *)malloc(bytes);
   h_b = (int *)malloc(bytes);
   h_c = (int *)malloc(bytes);
 
-  for (int i = 0; i < n * n; i++) {
+  for (int i = 0; i < N * N; i++) {
     h_a[i] = 9;
     h_b[i] = 9;
   }
