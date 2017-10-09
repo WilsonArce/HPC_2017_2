@@ -47,55 +47,53 @@ __global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
 */
 int main(int argc, char** argv )
 {
+  double timeGPU; //, timeCPU;
+  double A[N][N], B[N][N], C[N][N];
+  double *d_a, *d_b, *d_c;
+  int cont,i,j;
 
-  int main() {
-    double timeGPU; //, timeCPU;
-    double A[N][N], B[N][N], C[N][N];
-     double *d_a, *d_b, *d_c;
-     int cont,i,j;
-  
-    //inicializacion
-    for (i = 0; i < N; i++) {
-      cont = 0;
-      for (j = 0; j < N; j++) {
-         A[i][j] = cont;
-         B[i][j] = cont;
-         cont++;
-      }
+  //inicializacion
+  for (i = 0; i < N; i++) {
+    cont = 0;
+    for (j = 0; j < N; j++) {
+      A[i][j] = cont;
+      B[i][j] = cont;
+      cont++;
     }
+  }
+
+  size_t bytes = N * sizeof(double);
+
+  cudaMalloc((void **) &d_a, bytes);
+  cudaMalloc((void **) &d_b, bytes);
+  cudaMalloc((void **) &d_c, bytes);
+
+  cudaMemcpy(d_a, A, bytes, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_b, B, bytes, cudaMemcpyHostToDevice);
+
+  //int threadsPerBlock(16);
+  //int numBlocks(N/threadsPerBlock);
+  dim3 threadsPerBlock(32, 32);
+  dim3 numBlocks((int)ceil((float)N/threadsPerBlock.x), (int)ceil((float)N/threadsPerBlock.y));
   
-    size_t bytes = N * sizeof(double);
+  clock_t startGPU  = clock();
+  Matriz_GPU_Mult<<<numBlocks, threadsPerBlock>>>(d_a, d_b, d_c);
+  timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
   
-    cudaMalloc((void **) &d_a, bytes);
-     cudaMalloc((void **) &d_b, bytes);
-     cudaMalloc((void **) &d_c, bytes);
+  cudaMemcpy(C, d_c, bytes, cudaMemcpyDeviceToHost);
   
-    cudaMemcpy(d_a, A, bytes, cudaMemcpyHostToDevice);
-     cudaMemcpy(d_b, B, bytes, cudaMemcpyHostToDevice);
-  
-    //int threadsPerBlock(16);
-    //int numBlocks(N/threadsPerBlock);
-    dim3 threadsPerBlock(32, 32);
-     dim3 numBlocks((int)ceil((float)N/threadsPerBlock.x), (int)ceil((float)N/threadsPerBlock.y));
-    
-    clock_t startGPU  = clock();
-    Matriz_GPU_Mult<<<numBlocks, threadsPerBlock>>>(d_a, d_b, d_c);
-    timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
-    
-    cudaMemcpy(C, d_c, bytes, cudaMemcpyDeviceToHost);
-    
-    /*
-    clock_t startCPU = clock();
-    Matriz_CPU_Mult(A, B, C);
-    timeCPU = ((double)(clock() - startCPU))/CLOCKS_PER_SEC;
-    */
-  
-    cudaFree(d_a);
-    cudaFree(d_b);
-    cudaFree(d_c);
-  
-    // tiempos de ejecucion
-    printf("tiempo GPU = %f s\n",timeGPU);
+  /*
+  clock_t startCPU = clock();
+  Matriz_CPU_Mult(A, B, C);
+  timeCPU = ((double)(clock() - startCPU))/CLOCKS_PER_SEC;
+  */
+
+  cudaFree(d_a);
+  cudaFree(d_b);
+  cudaFree(d_c);
+
+  // tiempos de ejecucion
+  printf("tiempo GPU = %f s\n",timeGPU);
 /*
   if ( argc != 2 )
   {
