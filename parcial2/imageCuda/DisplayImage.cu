@@ -7,7 +7,7 @@ using namespace std;
 
 #define chSize 3
 
-#define N 512
+#define N 10
 
 __global__ void Matriz_GPU_Mult(double *a, double *b, double *c) {
 	int k, sum = 0;
@@ -72,7 +72,7 @@ int main(int argc, char** argv )
 
   //int threadsPerBlock(16);
   //int numBlocks(N/threadsPerBlock);
-  dim3 threadsPerBlock(32, 32);
+  dim3 threadsPerBlock(3, 3);
   dim3 numBlocks((int)ceil((float)N/threadsPerBlock.x), (int)ceil((float)N/threadsPerBlock.y));
   
   clock_t startGPU  = clock();
@@ -93,6 +93,8 @@ int main(int argc, char** argv )
 
   // tiempos de ejecucion
   printf("tiempo GPU = %f s\n",timeGPU);
+  cout << C << endl;
+
 /*
   if ( argc != 2 )
   {
