@@ -18,7 +18,7 @@ __global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
       r = A[row * cols + col];
       g = A[row * cols + col + 1];
       b = A[row * cols + col + 2];
-      printf("%d", r+g+b);
+      printf("%d", B[0]);
       for(int k = chSize - 1; k >= 0; k--){
         B[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
       }
@@ -69,7 +69,7 @@ int main(int argc, char** argv )
   //namedWindow("Display Image", WINDOW_AUTOSIZE );
   //imshow("Display Image", image);
   
-  Mat img = (Mat_<float>(image.rows, image.cols) << h_b);
+  //Mat img = (Mat_<float>(image.rows, image.cols) << h_b);
   //img = h_b;
   /*
   float r,g,b;
