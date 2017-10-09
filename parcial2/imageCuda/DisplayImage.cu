@@ -93,7 +93,7 @@ int main(int argc, char** argv )
   */
   //imwrite("lena_out.jpg", img);
 
-  //cout << image << endl;
+  cout << h_b << endl;
 
   //waitKey(0);
 
