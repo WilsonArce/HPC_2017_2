@@ -33,8 +33,10 @@ int main(int argc, char** argv )
     return -1;
   }
 
-  int cols = image.cols;
-  int rows = image.rows;
+  Size s = image.size();
+
+  int cols = s.width;
+  int rows = s.height;
 
   int imgInSize = sizeof(unsigned char) * cols * rows * image.channels();
   int imgOutSize = sizeof(unsigned char) * cols * rows * image.channels();
