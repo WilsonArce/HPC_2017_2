@@ -93,7 +93,7 @@ int main(int argc, char** argv )
 
   // tiempos de ejecucion
   printf("tiempo GPU = %f s\n",timeGPU);
-  cout << C[10][10] << endl;
+  cout << C[9][9] << endl;
 
 /*
   if ( argc != 2 )
