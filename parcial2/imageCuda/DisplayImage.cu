@@ -7,19 +7,19 @@ using namespace std;
 
 #define chSize 3
 
-__global__ void gpuGrayScale(int *a, float *b, int cols, int rows){
+__global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
   int tidx = (blockDim.x * blockIdx.x + threadIdx.x) + chSize;
   int tidy = blockDim.y * blockIdx.y + threadIdx.y;
 
   float r,g,b;
 
   for(int row = tidy; row < rows; row++){
-    for(int col = tidx; col < cols; col + chSize){
-      r = a[row * cols + col];
-      g = a[row * cols + col + 1];
-      b = a[row * cols + col + 2];
+    for(int col = tidx; col < cols; col += chSize){
+      r = A[row * cols + col];
+      g = A[row * cols + col + 1];
+      b = A[row * cols + col + 2];
       for(int k = chSize - 1; k >= 0; k--){
-        b[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
+        B[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
       }
     }
   }
