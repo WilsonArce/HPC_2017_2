@@ -56,7 +56,7 @@ int main(int argc, char** argv )
   cudaMalloc(&d_a, img_size * sizeof(int));
   cudaMalloc(&d_b, img_size * sizeof(float));
 
-  cudaMemcpy(d_a, h_a, img_size * sizeof(int), cudaMemcpyHostToDevice);
+  cdaMemcpy(d_a, h_a, img_size * sizeof(int), cudaMemcpyHostToDevice);
 
   dim3 threadsPerBlock(32, 32);
   dim3 numBlocks((int)ceil((float)image.cols/threadsPerBlock.x), (int)ceil((float)image.rows/threadsPerBlock.y));
