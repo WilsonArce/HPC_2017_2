@@ -25,10 +25,9 @@ int main(int argc, char** argv )
 {
 
   unsigned char *imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
-  char* imageName = argv[1];
-
+  
   Mat image;
-  image = imread( imageName, 1 );
+  image = imread( argv[1], 1 );
   
   if ( argc != 2 )
   {
@@ -40,7 +39,7 @@ int main(int argc, char** argv )
   int rows = image.rows;
 
   int imgInSize = sizeof(unsigned char) * cols * rows * image.channels();
-  int imgOutSize = sizeof(unsigned char) * cols * rows;
+  int imgOutSize = sizeof(unsigned char) * cols * rows * image.channels();
 
   imageIn = (unsigned char*)malloc(imgInSize);
   h_imageOut = (unsigned char*)malloc(imgOutSize);
@@ -62,7 +61,7 @@ int main(int argc, char** argv )
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
   Mat imageOut;
-  imageOut.create(rows, cols, CV_8UC1);
+  imageOut.create(rows, cols, CV_8UC3);
   imageOut.data = h_imageOut;
 
   printf("%d\n", imageOut.size().width);
