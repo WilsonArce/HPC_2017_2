@@ -69,7 +69,7 @@ int main(int argc, char** argv )
   //imshow("Display Image", image);
   
   Mat img(image.rows, image.cols, DataType<float>::type);
-  img = h_b
+  img = h_b;
   /*
   float r,g,b;
   for(int y=0;y<image.rows;y++){
