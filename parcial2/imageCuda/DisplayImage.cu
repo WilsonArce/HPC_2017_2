@@ -7,7 +7,7 @@ using namespace std;
 
 #define chSize 3
 
-#define N 4
+#define N 10
 
 __global__ void gpu_matrixMul(int *a, int *b, int *c, int n){
 
@@ -83,7 +83,7 @@ int main(int argc, char** argv )
   timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
   printf("tiempo GPU = %f s\n",timeGPU);
-  cout << h_c << endl;
+  cout << sizeof(h_c) << endl;
 
 /*
   if ( argc != 2 )
