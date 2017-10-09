@@ -55,8 +55,8 @@ int main(int argc, char** argv )
   for (i = 0; i < N; i++) {
     cont = 0;
     for (j = 0; j < N; j++) {
-      A[i][j] = cont;
-      B[i][j] = cont;
+      A[i][j] = cont * 987;
+      B[i][j] = cont * 987;
       cont++;
     }
   }
