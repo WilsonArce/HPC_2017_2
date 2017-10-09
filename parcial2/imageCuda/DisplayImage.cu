@@ -60,7 +60,10 @@ int main(int argc, char** argv )
 
   gpuGrayScale<<<numBlocks, threadsPerBlock>>>(d_a, d_b, image.cols, image.rows);
 
-  cudaMemcpy(h_b, img_size, cudaMemcpyDeviceToHost);
+  cudaMemcpy(h_b, d_b, img_size, cudaMemcpyDeviceToHost);
+
+  cudaFree(d_a);
+  cudaFree(d_b);
 
   //namedWindow("Display Image", WINDOW_AUTOSIZE );
   //imshow("Display Image", image);
