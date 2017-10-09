@@ -48,7 +48,7 @@ int main(int argc, char** argv )
 
   int *h_a, *d_a;
   float *h_b, *d_b;
-  //int img_size = image.rows * image.cols;
+  int img_size = image.rows * image.cols;
 
   h_a = (int *)malloc(img_size * sizeof(int));
   h_b = (float *)malloc(img_size * sizeof(float));
