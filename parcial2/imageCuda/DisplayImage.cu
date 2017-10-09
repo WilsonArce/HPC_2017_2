@@ -7,24 +7,20 @@ using namespace std;
 
 #define chSize 3
 
-#define MWIDTH 512
-#define MTILE 16
-#define BWIDTH 16
+#define N 4
 
-__global__ void gpu_matrixMul(int *a, int *b, int *c, int Width, int tile_width){
+__global__ void gpu_matrixMul(int *a, int *b, int *c, int n){
 
-  int start_row = (blockDim.y*blockIdx.y + threadIdx.y)*tile_width;
-  int end_row = start_row + tile_width;
-  int start_col = (blockDim.x*blockIdx.x + threadIdx.x)*tile_width;
-  int end_col = start_col + tile_width;
+  int i = blockDim.y * blockIdx.y + threadIdx.y;
+  int j = blockDim.x * blockIdx.x + threadIdx.x;
 
-  for (int row = start_row; row < end_row; row++) {
-    for(int col = start_col; col < end_col; col++) {
+  for ( row = i; row < n; row++) {
+    for( col = j; col < n; col++) {
       float sum = 0;
-      for (int k = 0; k < Width; k++) {
-        sum += a[row * Width + k]*b[k * Width + col];
+      for (int k = 0; k < n; k++) {
+        sum += a[row * n + k]*b[k * n + col];
       }
-      c[row*Width+col] = sum;
+      c[row * n + col] = sum;
     }
   }
 }
@@ -56,31 +52,36 @@ int main(int argc, char** argv )
 {
   double timeGPU;
   int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
-  h_a = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
-  h_b = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
-  h_c = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
-  cudaMalloc(&d_a, MWIDTH*MWIDTH*sizeof(int));
-  cudaMalloc(&d_b, MWIDTH*MWIDTH*sizeof(int));
-  cudaMalloc(&d_c, MWIDTH*MWIDTH*sizeof(int));
 
-  for (int i = 0; i < MWIDTH*MWIDTH; i++) {
+  size_t = bytes = n * n sizeof(int);
+
+  h_a = (int *)malloc(bytes);
+  h_b = (int *)malloc(bytes);
+  h_c = (int *)malloc(bytes);
+
+  for (int i = 0; i < n * n; i++) {
     h_a[i] = 9;
     h_b[i] = 9;
-    h_c[i] = 9;
   }
 
-  cudaMemcpy(d_a, h_a, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyHostToDevice);
-  cudaMemcpy(d_b, h_b, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyHostToDevice);
-  cudaMemset(d_c, 0, MWIDTH*MWIDTH*sizeof(int));
+  cudaMalloc(&d_a, bytes);
+  cudaMalloc(&d_b, bytes);
+  cudaMalloc(&d_c, bytes);
+
+  cudaMemcpy(d_a, h_a, bytes, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_b, h_b, bytes, cudaMemcpyHostToDevice);
+
+  dim3 threadsPerBlock(N, N);
+  dim3 numBlocks((int)ceil((float)N/threadsPerBlock.x), (int)ceil((float)N/threadsPerBlock.y));
 
   clock_t startGPU  = clock();
-  gpu_matrixMul<<<dim3((MWIDTH/(MTILE*BWIDTH)), (MWIDTH/(MTILE*BWIDTH))), dim3(BWIDTH,BWIDTH)>>>(d_a, d_b, d_c, MWIDTH, MTILE);
+  gpu_matrixMul<<<numBlocks, threadsPerBlock>>>(d_a, d_b, d_c, N);
 
-  cudaMemcpy(h_c, d_c, MWIDTH*MWIDTH*sizeof(int), cudaMemcpyDeviceToHost);
+  cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost);
   timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
   printf("tiempo GPU = %f s\n",timeGPU);
-  cout << h_c[9] << endl;
+  cout << h_c[0] << endl;
 
 /*
   if ( argc != 2 )
