@@ -5,154 +5,66 @@
 using namespace cv;
 using namespace std;
 
-#define chSize 3
-
-#define N 4
-
-__global__ void gpu_matrixMul(int *a, int *b, int *c, int n){
-
-  int i = blockDim.y * blockIdx.y + threadIdx.y;
-  int j = blockDim.x * blockIdx.x + threadIdx.x;
-
-  int row, col;
-
-  for(row = i; row < n; row++){
-    for(col = j; col < n; col++){
-      int sum = 0;
-      for(int k = 0; k < n; k++){
-        sum += a[row * n + k] * b[k * n + col];
-      }
-      c[row * n + col] = sum;
-    }
-  }
-}
-
-/*
-__global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
-  int tidx = (blockDim.x * blockIdx.x + threadIdx.x) + chSize;
-  int tidy = blockDim.y * blockIdx.y + threadIdx.y;
-
+__global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int cols, int rows){
+  int row = blockIdx.y * blockDim.y + threadIdx.y;
+  int col = blockIdx.x * blockDim.x + threadIdx.x;
   float r,g,b;
+  if(row < rows && col < cols){
 
-  printf("%d,%d", tidx, tidy);
+    r = imgIn[row * cols + col] * 3 + 2;
+    g = imgIn[row * cols + col] * 3 + 1;
+    b = imgIn[row * cols + col] * 3 + 0;
 
-  for(int row = tidy; row < rows; row++){
-    for(int col = tidx; col < cols; col += chSize){
-      r = A[row * cols + col];
-      g = A[row * cols + col + 1];
-      b = A[row * cols + col + 2];
-      
-      for(int k = chSize - 1; k >= 0; k--){
-        B[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
-      }
-    }
+    imgOut[row * cols + col] = r * 0.299 + g * 0.587 + b * 0.114;
+
   }
 
 }
-*/
+
+
 int main(int argc, char** argv )
 {
-  double timeGPU;
-  int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
 
-  size_t bytes = N * N * sizeof(int);
-
-  h_a = (int *)malloc(bytes);
-  h_b = (int *)malloc(bytes);
-  h_c = (int *)malloc(bytes);
-
-  for (int i = 0; i < N * N; i++) {
-    h_a[i] = N;
-    h_b[i] = N;
-  }
-
-  cudaMalloc(&d_a, bytes);
-  cudaMalloc(&d_b, bytes);
-  cudaMalloc(&d_c, bytes);
-
-  cudaMemcpy(d_a, h_a, bytes, cudaMemcpyHostToDevice);
-  cudaMemcpy(d_b, h_b, bytes, cudaMemcpyHostToDevice);
-
-  dim3 threadsPerBlock(N, N);
-  dim3 numBlocks((int)ceil((float)N/threadsPerBlock.x), (int)ceil((float)N/threadsPerBlock.y));
-
-  clock_t startGPU  = clock();
-  gpu_matrixMul<<<numBlocks, threadsPerBlock>>>(d_a, d_b, d_c, N);
-  cudaDeviceSynchronize();
-
-  cudaMemcpy(h_c, d_c, bytes, cudaMemcpyDeviceToHost);
-  timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
-
-  printf("tiempo GPU = %f s\n",timeGPU);
-  cout << d_c[8] << endl;
-
-/*
-  if ( argc != 2 )
-  {
-    printf("usage: DisplayImage.out <Image_Path>\n");
-    return -1;
-  }
-
+  unsigned char *imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
   Mat image;
   image = imread( argv[1], 1 );
-
-  if ( !image.data )
+  
+  if ( argc != 2 )
   {
-    printf("No image data \n");
+    printf("usage: DisplayImage <Image_Path>\n");
     return -1;
   }
 
-  int *h_a, *d_a;
-  float *h_b, *d_b;
-  int img_size = image.rows * image.cols;
+  int cols = image.cols;
+  int rows = image.rows;
 
-  h_a = (int *)malloc(img_size * sizeof(int));
-  h_b = (float *)malloc(img_size * sizeof(float));
+  int imgInSize = sizeof(unsigned char) * cols * rows * image.channels();
+  int imgOutSize = sizeof(unsigned char) * cols * rows;
 
-  cudaMalloc((void **) &d_a, img_size * sizeof(int));
-  cudaMalloc((void **) &d_b, img_size * sizeof(float));
+  imageIn = (unsigned char*)malloc(imgInSize);
+  h_imageOut = (unsigned char*)malloc(imgOutSize);
 
-  cudaMemcpy(d_a, h_a, img_size * sizeof(int), cudaMemcpyHostToDevice);
+  cudaMalloc((void**)&d_imageIn, imgInSize);
+  cudaMalloc((void**)&d_imageOut, imgOutSize);
 
-  dim3 threadsPerBlock(32, 32);
-  dim3 numBlocks((int)ceil((float)image.cols/threadsPerBlock.x), (int)ceil((float)image.rows/threadsPerBlock.y));
+  imageIn = image.data;
 
-  gpuGrayScale<<<numBlocks, threadsPerBlock>>>(d_a, d_b, image.cols, image.rows);
-  cout << "im here" << endl;
-  cudaMemcpy(h_b, d_b, img_size, cudaMemcpyDeviceToHost);
+  cudaMemcpy(d_imageIn, imageIn, imgInSize, cudaMemcpyHostToDevice);
 
-  cudaFree(d_a);
-  cudaFree(d_b);
+  int threads = 16;
+  dim3 numThreads(threads, threads);
+  dim3 blockDim((int)ceil((float)cols/threads), (int)ceil((float)rows/threads));
 
-  //namedWindow("Display Image", WINDOW_AUTOSIZE );
-  //imshow("Display Image", image);
-  
-  //Mat img = (Mat_<float>(image.rows, image.cols) << h_b);
-  //img = h_b;
-  /*
-  float r,g,b;
-  for(int y=0;y<image.rows;y++){
-    for(int x=0;x<image.cols;x++){
-      // get pixel
-      Vec3b color = img.at<Vec3b>(Point(x,y));
+  gpuGrayScale<<<blockDim, numThreads>>>(d_imageIn, d_imageOut, cols, rows);
+  cudaDeviceSynchronize();
 
-      r = color[0];
-      g = color[1];
-      b = color[2];
+  cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
-      //I = .299f * R + .587f * G + .114f * B
-      color[2] = (r * 0.299 + g * 0.587 + b * 0.114);
-      color[1] = (r * 0.299 + g * 0.587 + b * 0.114);
-      color[0] = (r * 0.299 + g * 0.587 + b * 0.114);
+  Mat imageOut;
+  imageOut.create(rows, cols, CV_8UC1);
+  imageOut.data = h_imageOut;
 
-      // set pixel
-      img.at<Vec3b>(Point(x,y)) = color;
-    }
-  }
-  */
-  //imwrite("lena_out.jpg", img);
-
-  //cout << h_b[0] << endl;
+  imwrite("lena_out.jpg", imageOut);
 
   //waitKey(0);
 
