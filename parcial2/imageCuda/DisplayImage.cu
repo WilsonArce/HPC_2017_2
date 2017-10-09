@@ -61,10 +61,10 @@ int main(int argc, char** argv )
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
   Mat imageOut;
-  imageOut.create(rows, cols, CV_8UC3);
+  //imageOut.create(rows, cols, CV_8UC3);
   imageOut.data = h_imageOut;
 
-  printf("%d\n", imageOut.size().width);
+  //printf("%d\n", imageOut.size().width);
 
   imwrite("lena_out.jpg", imageOut);
 
