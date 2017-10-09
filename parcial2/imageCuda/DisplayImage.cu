@@ -17,7 +17,6 @@ __global__ void Matriz_GPU_Mult(double *a, double *b, double *c) {
     for (k = 0; k < N; k++) {
       sum += a[j * N + k] * b[k * N + i];
     }
-    printf("%d", i);
     c[j * N + i] = sum;
   }
 }
