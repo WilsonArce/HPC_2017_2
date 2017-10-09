@@ -79,7 +79,7 @@ int main(int argc, char** argv )
   timeGPU = ((double)(clock() - startGPU))/CLOCKS_PER_SEC;
 
   printf("tiempo GPU = %f s\n",timeGPU);
-  cout << h_c[9][9] << endl;
+  cout << h_c[9] << endl;
 
 /*
   if ( argc != 2 )
