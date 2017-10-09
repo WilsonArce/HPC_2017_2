@@ -10,9 +10,9 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   int col = blockIdx.x * blockDim.x + threadIdx.x;
   unsigned char r,g,b;
   if(row < rows && col < cols){
-    r = 255;//imgIn[(row * cols + col) * 3 + 2];
-    g = 200;//imgIn[(row * cols + col) * 3 + 1];
-    b = 100;//imgIn[(row * cols + col) * 3 + 0];
+    r = imgIn[(row * cols + col) * 3 + 2];
+    g = imgIn[(row * cols + col) * 3 + 1];
+    b = imgIn[(row * cols + col) * 3 + 0];
 
     imgOut[row * cols + col] = r * 0.299 + g * 0.587 + b * 0.114;
   }
@@ -59,10 +59,10 @@ int main(int argc, char** argv )
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
   Mat imageOut;
-  imageOut.create(rows, cols, CV_8UC3);
+  imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageOut;
 
-  cout << imageOut << endl;
+  cout << imageOut.size() << endl;
 
   imwrite("lena_out.jpg", imageOut);
 
