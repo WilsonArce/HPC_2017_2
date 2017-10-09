@@ -10,7 +10,6 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   int col = blockIdx.x * blockDim.x + threadIdx.x;
   float r,g,b;
   if(row < rows && col < cols){
-
     r = imgIn[row * cols + col] * 3 + 2;
     g = imgIn[row * cols + col] * 3 + 1;
     b = imgIn[row * cols + col] * 3 + 0;
@@ -63,6 +62,8 @@ int main(int argc, char** argv )
   Mat imageOut;
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageOut;
+
+  printf("%d\n", imageOut.size());
 
   imwrite("lena_out.jpg", imageOut);
 
