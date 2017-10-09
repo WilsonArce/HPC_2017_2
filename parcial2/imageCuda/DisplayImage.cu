@@ -10,6 +10,8 @@ __global__ void gpuGrayScale(int *a, int *b, int cols, int rows){
   int tidx = (blockDim.x * blockIdx.x + threadIdx.x) + chSize;
   int tidy = blockDim.y * blockIdx.y + threadIdx.y;
 
+  int r,g,b;
+
   for(int row = tidy; row < rows; row++){
     for(int col = tidx; col < cols; col + chSize){
       r = a[row * cols + j];
