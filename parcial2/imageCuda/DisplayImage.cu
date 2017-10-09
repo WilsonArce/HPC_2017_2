@@ -8,7 +8,7 @@ using namespace std;
 __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int cols, int rows){
   int row = blockIdx.y * blockDim.y + threadIdx.y;
   int col = blockIdx.x * blockDim.x + threadIdx.x;
-  unsigned char = r,g,b;
+  unsigned char r,g,b;
   if(row < rows && col < cols){
     r = imgIn[(row * cols + col) * 3 + 2];
     g = imgIn[(row * cols + col) * 3 + 1];
