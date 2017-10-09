@@ -69,7 +69,7 @@ int main(int argc, char** argv )
   //namedWindow("Display Image", WINDOW_AUTOSIZE );
   //imshow("Display Image", image);
   
-  //Mat img(image.rows, image.cols, DataType<float>::type);
+  Mat img = (Mat_<double>(image.rows, image.cols) << h_b);
   //img = h_b;
   /*
   float r,g,b;
