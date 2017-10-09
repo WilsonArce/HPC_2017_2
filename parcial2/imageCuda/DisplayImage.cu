@@ -91,7 +91,7 @@ int main(int argc, char** argv )
     }
   }
   */
-  imwrite("lena_out.jpg", img);
+  //imwrite("lena_out.jpg", img);
 
   //cout << image << endl;
 
