@@ -68,7 +68,7 @@ int main(int argc, char** argv )
   //namedWindow("Display Image", WINDOW_AUTOSIZE );
   //imshow("Display Image", image);
   
-  Mat img = image;
+  Mat img = h_b;
 
   /*
   float r,g,b;
