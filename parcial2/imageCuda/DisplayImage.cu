@@ -7,7 +7,7 @@ using namespace std;
 
 #define chSize 3
 
-#define N 10
+#define N 4
 
 __global__ void gpu_matrixMul(int *a, int *b, int *c, int n){
 
@@ -62,8 +62,8 @@ int main(int argc, char** argv )
   h_c = (int *)malloc(bytes);
 
   for (int i = 0; i < N * N; i++) {
-    h_a[i] = 9;
-    h_b[i] = 9;
+    h_a[i] = N;
+    h_b[i] = N;
   }
 
   cudaMalloc(&d_a, bytes);
