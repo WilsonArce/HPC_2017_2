@@ -53,7 +53,7 @@ int main(int argc, char** argv )
 
   //inicializacion
   for (i = 0; i < N; i++) {
-    cont = 0;
+    cont = 3;
     for (j = 0; j < N; j++) {
       A[i][j] = cont;
       B[i][j] = cont;
