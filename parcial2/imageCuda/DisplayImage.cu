@@ -10,9 +10,9 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   int col = blockIdx.x * blockDim.x + threadIdx.x;
   float r,g,b;
   if(row < rows && col < cols){
-    r = imgIn[row * cols + col] * 3 + 2;
-    g = imgIn[row * cols + col] * 3 + 1;
-    b = imgIn[row * cols + col] * 3 + 0;
+    r = imgIn[(row * cols + col) * 3 + 2];
+    g = imgIn[(row * cols + col) * 3 + 1];
+    b = imgIn[(row * cols + col) * 3 + 0];
 
     imgOut[row * cols + col] = r * 0.299 + g * 0.587 + b * 0.114;
 
