@@ -18,6 +18,7 @@ __global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
       r = A[row * cols + col];
       g = A[row * cols + col + 1];
       b = A[row * cols + col + 2];
+      cout << r, g, b << endl;
       for(int k = chSize - 1; k >= 0; k--){
         B[row * cols + col - k] = (r * 0.299 + g * 0.587 + b * 0.114);
       }
