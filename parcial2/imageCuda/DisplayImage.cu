@@ -54,7 +54,7 @@ __global__ void gpuGrayScale(int *A, float *B, int cols, int rows){
 int main(int argc, char** argv )
 {
 
-  ouble timeGPU;
+  double timeGPU;
   int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
   h_a = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
   h_b = (int *)malloc(MWIDTH*MWIDTH*sizeof(int));
