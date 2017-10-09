@@ -55,7 +55,7 @@ int main(int argc, char** argv )
   double timeGPU;
   int *h_a, *h_b, *h_c, *d_a, *d_b, *d_c;
 
-  size_t  bytes = N * N sizeof(int);
+  size_t bytes = N * N sizeof(int);
 
   h_a = (int *)malloc(bytes);
   h_b = (int *)malloc(bytes);
