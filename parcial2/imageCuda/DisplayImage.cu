@@ -126,7 +126,7 @@ int main(int argc, char **argv){
   dataRawImage = (unsigned char*)malloc(size);
   error = cudaMalloc((void**)&d_dataRawImage,size);
   if(error != cudaSuccess){
-      printf("Error reservando memoria para d_dataRawImage\n");
+      printf("Error reservando memoria para d_dataRawImage\n -> %s\n", cudaGetErrorString(error));
       exit(-1);
   }
 
