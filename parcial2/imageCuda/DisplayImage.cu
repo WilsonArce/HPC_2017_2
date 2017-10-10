@@ -49,9 +49,9 @@ int main(int argc, char** argv )
 
   cudaMemcpy(d_imageIn, imageIn, imgInSize, cudaMemcpyHostToDevice);
 
-  int threads = 16;
+  int threads = 32;
   dim3 numThreads(threads, threads);
-  dim3 blockDim((int)ceil((float)cols/threads), (int)ceil((float)rows/threads));
+  dim3 blockDim(ceil(cols/float(threads)), ceil(rows/float(threads)));
 
   gpuGrayScale<<<blockDim, numThreads>>>(d_imageIn, d_imageOut, cols, rows);
   cudaDeviceSynchronize();
