@@ -62,7 +62,7 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageOut;
 
-  cout << imageOut.channels() << endl << d_imageOut << endl;
+  cout << imageOut.channels() << endl << sizeof(d_imageOut) << endl;
 
   imwrite("lena_out.jpg", imageOut);
 
