@@ -1,4 +1,4 @@
-/*
+
 #include <stdio.h>
 #include <time.h>
 #include <opencv2/opencv.hpp>
@@ -74,7 +74,7 @@ int main(int argc, char** argv )
 
   return 0;
 }
-*/
+/*
 
 //kala855 version
 
@@ -119,8 +119,8 @@ int main(int argc, char **argv){
 
   int width = s.width;
   int height = s.height;
-  int size = sizeof(unsigned char*)*width*height*image.channels();
-  int sizeGray = sizeof(unsigned char*)*width*height;
+  int size = sizeof(unsigned char)*width*height*image.channels();
+  int sizeGray = sizeof(unsigned char)*width*height;
 
 
   dataRawImage = (unsigned char*)malloc(size);
@@ -145,7 +145,7 @@ int main(int argc, char **argv){
           dataRawImage[(i*width+j)*3+BLUE] = 0;
       }
   }*/
-
+/*
   startGPU = clock();
   error = cudaMemcpy(d_dataRawImage,dataRawImage,size, cudaMemcpyHostToDevice);
   if(error != cudaSuccess){
@@ -194,3 +194,4 @@ int main(int argc, char **argv){
   cudaFree(d_imageOutput);
   return 0;
 }
+*/
