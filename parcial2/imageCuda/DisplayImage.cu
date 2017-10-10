@@ -33,13 +33,11 @@ int main(int argc, char** argv )
     return -1;
   }
 
-  Size s = image.size();
-
-  int cols = s.width;
-  int rows = s.height;
+  int cols = s.cols;
+  int rows = s.rows;
 
   int imgInSize = sizeof(unsigned char) * cols * rows * image.channels();
-  int imgOutSize = sizeof(unsigned char) * cols * rows * image.channels();
+  int imgOutSize = sizeof(unsigned char) * cols * rows;
 
   imageIn = (unsigned char*)malloc(imgInSize);
   h_imageOut = (unsigned char*)malloc(imgOutSize);
@@ -69,6 +67,9 @@ int main(int argc, char** argv )
   imwrite("lena_out.jpg", imageOut);
 
   //waitKey(0);
+
+  cudaFree(d_imageIn);
+  cudaFree(d_imageOut);
 
   return 0;
 }
