@@ -76,6 +76,8 @@ int main(int argc, char** argv )
 }
 */
 
+//kala855 version
+
 #include <cv.h>
 #include <highgui.h>
 #include <time.h>
