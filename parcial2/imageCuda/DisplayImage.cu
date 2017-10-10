@@ -24,7 +24,7 @@ int main(int argc, char** argv )
 {
 
   unsigned char *imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
-  cudaError_t error = cudaSuccess;
+  //cudaError_t error = cudaSuccess;
   Mat image;
   image = imread( argv[1], 1 );
   
@@ -44,7 +44,7 @@ int main(int argc, char** argv )
   h_imageOut = (unsigned char*)malloc(imgOutSize);
 
   cudaMalloc((void**)&d_imageIn, imgInSize);
-  
+
   //error = cudaMalloc((void**)&d_imageIn, imgInSize);
   /*if(error != cudaSuccess){
       printf("Error reservando memoria para d_imageIn\n -> %s\n", cudaGetErrorString(error));
@@ -69,7 +69,7 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageOut;
 
-  cout << imageOut << endl << sizeof(d_imageOut) << endl;
+  cout << imageOut.channels << endl << sizeof(d_imageOut) << endl;
 
   imwrite("lena_out.jpg", imageOut);
 
