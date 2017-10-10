@@ -43,11 +43,13 @@ int main(int argc, char** argv )
   imageIn = (unsigned char*)malloc(imgInSize);
   h_imageOut = (unsigned char*)malloc(imgOutSize);
 
-  error = cudaMalloc((void**)&d_imageIn, imgInSize);
-  if(error != cudaSuccess){
+  cudaMalloc((void**)&d_imageIn, imgInSize);
+  
+  //error = cudaMalloc((void**)&d_imageIn, imgInSize);
+  /*if(error != cudaSuccess){
       printf("Error reservando memoria para d_imageIn\n -> %s\n", cudaGetErrorString(error));
       exit(-1);
-  }
+  }*/
   cudaMalloc((void**)&d_imageOut, imgOutSize);
 
   imageIn = image.data;
