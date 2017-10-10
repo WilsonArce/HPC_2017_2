@@ -119,8 +119,8 @@ int main(int argc, char **argv){
 
   int width = s.width;
   int height = s.height;
-  int size = sizeof(unsigned char)*width*height*image.channels();
-  int sizeGray = sizeof(unsigned char)*width*height;
+  int size = sizeof(unsigned char*)*width*height*image.channels();
+  int sizeGray = sizeof(unsigned char*)*width*height;
 
 
   dataRawImage = (unsigned char*)malloc(size);
