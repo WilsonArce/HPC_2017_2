@@ -24,7 +24,7 @@ int main(int argc, char** argv )
 {
 
   unsigned char *imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
-  
+  cudaError_t error = cudaSuccess;
   Mat image;
   image = imread( argv[1], 1 );
   
@@ -43,7 +43,11 @@ int main(int argc, char** argv )
   imageIn = (unsigned char*)malloc(imgInSize);
   h_imageOut = (unsigned char*)malloc(imgOutSize);
 
-  cudaMalloc((void**)&d_imageIn, imgInSize);
+  error = cudaMalloc((void**)&d_imageIn, imgInSize);
+  if(error != cudaSuccess){
+      printf("Error reservando memoria para d_imageIn\n -> %s\n", cudaGetErrorString(error));
+      exit(-1);
+  }
   cudaMalloc((void**)&d_imageOut, imgOutSize);
 
   imageIn = image.data;
