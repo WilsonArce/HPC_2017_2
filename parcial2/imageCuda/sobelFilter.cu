@@ -140,7 +140,7 @@ int main(int argc, char** argv )
   gpuSobelFilter<<<blockDim, numThreads>>>(d_imageOut, d_imageFiltered, d_imageX, d_imageY, cols, rows);
 
   //passing result SOBEL data from DEVICE to HOST
-  cudaMemcpy(h_imageOut, d_imageFiltered, imgOutSize, cudaMemcpyDeviceToHost);
+  cudaMemcpy(h_imageOut, d_imageY, imgOutSize, cudaMemcpyDeviceToHost);
 
   //
   Mat imageOut;
