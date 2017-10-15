@@ -18,7 +18,8 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   }
 }
 
-__global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgX, unsigned char *imgY, unsigned char *imgFiltered, int *xFilter, int *yFilter, int cols, int rows){
+__global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgX, unsigned char *imgY, \
+  unsigned char *imgFiltered, int *xFilter, int *yFilter, int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
@@ -75,7 +76,7 @@ int main(int argc, char** argv )
   unsigned char *h_imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
 
   //elements for SOBEL filter
-  //unsigned char *d_imageX, *d_imageY, *d_imageFiltered;
+  unsigned char *d_imageX, *d_imageY, *d_imageFiltered;
 
   //cudaError_t error = cudaSuccess;
   Mat image;
@@ -103,6 +104,11 @@ int main(int argc, char** argv )
   cudaMalloc((void**)&d_imageIn, imgInSize);
   cudaMalloc((void**)&d_imageOut, imgOutSize);
 
+  //allocation of memory for elements of SOBEL filter ON DEVICE
+  cudaMalloc((void**)&d_imagex, imgOutSize);
+  cudaMalloc((void**)&d_imageY, imgOutSize);
+  cudaMalloc((void**)&d_imageFiltered, imgOutSize);
+
   //error = cudaMalloc((void**)&d_imageIn, imgInSize);
   /*if(error != cudaSuccess){
       printf("Error reservando memoria para d_imageIn\n -> %s\n", cudaGetErrorString(error));
@@ -112,7 +118,7 @@ int main(int argc, char** argv )
   //passing data for image processing
   h_imageIn = image.data;
 
-  //passing image data from HOST to DEVICE
+  //passing image data from HOST to DEVICE for GRAYSCALE filter
   cudaMemcpy(d_imageIn, h_imageIn, imgInSize, cudaMemcpyHostToDevice);
 
   //parameters definition for CUDA kernel
@@ -120,14 +126,18 @@ int main(int argc, char** argv )
   dim3 numThreads(threads, threads);
   dim3 blockDim(ceil(cols/float(threads)), ceil(rows/float(threads)));
 
-  //CUDA kerne call
+  //CUDA grayscale kernel call
   gpuGrayScale<<<blockDim, numThreads>>>(d_imageIn, d_imageOut, cols, rows);
-  
-  //CUDA threads sincronization
-  cudaDeviceSynchronize();
+  cudaDeviceSynchronize();//CUDA threads sincronization
 
   //passing result GRAYSCALE data from DEVICE to HOST
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
+
+  //CUDA sobel filter call
+  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageOut, d_imageFiltered, d_imageX, imageY, cols, rows);
+
+  //passing result SOBEL data from DEVICE to HOST
+  cudaMemcpy(h_imageOut, d_imageFiltered, imgOutSize, cudaMemcpyDeviceToHost);
 
   //
   Mat imageOut;
