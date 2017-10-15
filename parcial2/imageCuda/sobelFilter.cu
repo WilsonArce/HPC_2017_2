@@ -19,7 +19,7 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
 }
 
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgX, unsigned char *imgY, \
-  unsigned char *imgFiltered, int *xFilter, int *yFilter, int cols, int rows){
+  unsigned char *imgFiltered, int xFilter, int yFilter, int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
@@ -134,9 +134,8 @@ int main(int argc, char** argv )
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
   //sobel kernels 
-	int *sobelx[9] = {-1,0,1,-2,0,2,-1,0,1};
-	int *sobely[9] = {-1,-2,-1,0,0,0,1,2,1};
-
+	int sobelx[9] = {-1,0,1,-2,0,2,-1,0,1};
+	int sobely[9] = {-1,-2,-1,0,0,0,1,2,1};
 
   //CUDA sobel filter call
   gpuSobelFilter<<<blockDim, numThreads>>>(d_imageOut, d_imageFiltered, d_imageX, d_imageY, sobelx, sobely, cols, rows);
