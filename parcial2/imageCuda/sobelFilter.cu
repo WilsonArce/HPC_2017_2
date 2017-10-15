@@ -75,7 +75,7 @@ int main(int argc, char** argv )
   unsigned char *h_imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
 
   //elements for SOBEL filter
-  unsigned char *d_imageX, *d_imageY, *d_imageFiltered;
+  //unsigned char *d_imageX, *d_imageY, *d_imageFiltered;
 
   //cudaError_t error = cudaSuccess;
   Mat image;
