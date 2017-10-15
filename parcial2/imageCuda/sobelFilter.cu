@@ -71,7 +71,7 @@ int main(int argc, char** argv )
   cout << imageOut.channels() << endl << sizeof(d_imageOut) << endl;
 
   imwrite("imageOut.jpg", imageOut);
-  cout<< imageout << endl;
+  cout<< imageOut << endl;
 
   //waitKey(0);
 
