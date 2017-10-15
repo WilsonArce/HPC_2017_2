@@ -61,7 +61,7 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgX, unsi
 					imgY[i * cols + j] = sumy;
 				}
 			}
-			imgFiltered[i * cols + j] = sqrt(pow(imgX[i * cols + j],2) + pow(imgY[i * cols + j],2));
+			imgFiltered[i * cols + j] = sqrt(pow((int)imgX[i * cols + j],2) + pow((int)imgY[i * cols + j],2));
 		}
 	//}
 
