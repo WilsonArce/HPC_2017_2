@@ -105,7 +105,7 @@ int main(int argc, char** argv )
   cudaMalloc((void**)&d_imageOut, imgOutSize);
 
   //allocation of memory for elements of SOBEL filter ON DEVICE
-  cudaMalloc((void**)&d_imagex, imgOutSize);
+  cudaMalloc((void**)&d_imageX, imgOutSize);
   cudaMalloc((void**)&d_imageY, imgOutSize);
   cudaMalloc((void**)&d_imageFiltered, imgOutSize);
 
@@ -133,8 +133,13 @@ int main(int argc, char** argv )
   //passing result GRAYSCALE data from DEVICE to HOST
   cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
 
+  //sobel kernels 
+	int *sobelx[9] = {-1,0,1,-2,0,2,-1,0,1};
+	int *sobely[9] = {-1,-2,-1,0,0,0,1,2,1};
+
+
   //CUDA sobel filter call
-  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageOut, d_imageFiltered, d_imageX, imageY, cols, rows);
+  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageOut, d_imageFiltered, d_imageX, d_imageY, sobelx, sobely, cols, rows);
 
   //passing result SOBEL data from DEVICE to HOST
   cudaMemcpy(h_imageOut, d_imageFiltered, imgOutSize, cudaMemcpyDeviceToHost);
