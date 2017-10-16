@@ -6,6 +6,6 @@ set(CUDA_USE_STATIC_CUDA_RUNTIME OFF)
 #set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}; -O3 -arch=sm_52)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 cuda_add_executable( sobelFilterGM sobelFilterGM.cu )
-target_link_libraries( sobelFilter ${OpenCV_LIBS} )
+target_link_libraries( sobelFilterGM ${OpenCV_LIBS} )
 
 
