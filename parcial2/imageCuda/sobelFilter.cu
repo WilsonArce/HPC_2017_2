@@ -75,7 +75,7 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 int main(int argc, char** argv )
 {
 
-  double timeGPU_GS, timeGPU_SB
+  double timeGPU_GS, timeGPU_SB;
 
   //elements for GRAYSCALE filter
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
