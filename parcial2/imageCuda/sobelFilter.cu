@@ -75,7 +75,7 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 int main(int argc, char** argv )
 {
 
-  double timeGPU_GS, timeGPU_SB;
+  double timeGPU_GS, timeGPU_SB, timeCPU_GS, timeCPU_SB;
 
   //elements for GRAYSCALE filter
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
@@ -103,13 +103,16 @@ int main(int argc, char** argv )
   Mat src_gray;
   Mat grad;
 
+  clock_t startCPU_GS = clock();
   /// Convert it to gray
   cvtColor( image, src_gray, CV_BGR2GRAY );
+  timeCPU_GS = ((double)(clock() - startCPU_GS))/CLOCKS_PER_SEC;
 
   /// Generate grad_x and grad_y
   Mat grad_x, grad_y;
   Mat abs_grad_x, abs_grad_y;
 
+  clock_t startCPU_SB = clock();
   /// Gradient X
   //Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
   Sobel( src_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
@@ -122,6 +125,7 @@ int main(int argc, char** argv )
 
   /// Total Gradient (approximate)
   addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+  timeCPU_SB = ((double)(clock() - startCPU_SB))/CLOCKS_PER_SEC;
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   //image size cols and rows
@@ -188,7 +192,9 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageSobel;
 
+  printf("Grayscale CPU time = %f s\n",timeCPU_GS);
   printf("Grayscale GPU time = %f s\n",timeGPU_GS);
+  printf("Sobel filter CPU time = %f s\n",timeCPU_SB);
   printf("Sobel filter GPU time = %f s\n",timeGPU_SB);
 
   imwrite("images/imageSobel_gpu.jpg", imageOut);
