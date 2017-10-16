@@ -192,6 +192,8 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageSobel;
 
+  cout<<"Image size = "<< image.size() << endl;
+
   printf("Grayscale CPU time = %f s\n",timeCPU_GS);
   printf("Grayscale GPU time = %f s\n",timeGPU_GS);
   printf("Sobel filter CPU time = %f s\n",timeCPU_SB);
