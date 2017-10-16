@@ -191,8 +191,8 @@ int main(int argc, char** argv )
   printf("Grayscale GPU time = %f s\n",timeGPU_GS);
   printf("Sobel filter GPU time = %f s\n",timeGPU_SB);
 
-  imwrite("imageOut.jpg", imageOut);
-  imwrite("imageGray.jpg", grad);
+  imwrite("images/imageSobel_gpu.jpg", imageOut);
+  imwrite("images/imageSobel_opCV.jpg", grad);
 
   //waitKey(0);
 
