@@ -75,6 +75,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 int main(int argc, char** argv )
 {
 
+  double timeGPU_GS, timeGPU_SB
+
   //elements for GRAYSCALE filter
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
 
@@ -132,16 +134,20 @@ int main(int argc, char** argv )
   dim3 numThreads(threads, threads);
   dim3 blockDim(ceil(cols/float(threads)), ceil(rows/float(threads)));
 
+  clock_t startGPU_GS = clock();
   //CUDA grayscale kernel call
   gpuGrayScale<<<blockDim, numThreads>>>(d_imageIn, d_imageGray, cols, rows);
   cudaDeviceSynchronize();//CUDA threads sincronization
+  timeGPU_GS = ((double)(clock() - startGPU_GS))/CLOCKS_PER_SEC;
 
   //passing result GRAYSCALE data from DEVICE to HOST
   cudaMemcpy(h_imageGray, d_imageGray, imgOutSize, cudaMemcpyDeviceToHost);
 
+  clock_t startGPU_SB = clock();
   //CUDA sobel filter call
   gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, d_imageX, d_imageY, cols, rows);
   cudaDeviceSynchronize();//CUDA threads sincronization
+  timeGPU_SB = ((double)(clock() - startGPU_SB))/CLOCKS_PER_SEC;
 
   //passing result SOBEL data from DEVICE to HOST
   cudaMemcpy(h_imageSobel, d_imageSobel, imgOutSize, cudaMemcpyDeviceToHost);
@@ -151,7 +157,8 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageSobel;
 
-  cout << imageOut.channels() << endl ;//<< sizeof(d_imageGray)*sizeof(unsigned char) << endl;
+  printf("Grayscale GPU time = %f s\n",timeGPU_GS);
+  printf("Sobel filter GPU time = %f s\n",timeGPU_SB);
 
   imwrite("imageOut.jpg", imageOut);
 
