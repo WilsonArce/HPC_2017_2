@@ -144,7 +144,7 @@ int main(int argc, char** argv )
   cudaDeviceSynchronize();//CUDA threads sincronization
 
   //passing result SOBEL data from DEVICE to HOST
-  cudaMemcpy(h_imageSobel, d_imageX, imgOutSize, cudaMemcpyDeviceToHost);
+  cudaMemcpy(h_imageSobel, d_imageY, imgOutSize, cudaMemcpyDeviceToHost);
 
   //
   Mat imageOut;
