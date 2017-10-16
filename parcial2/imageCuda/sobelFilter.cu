@@ -157,6 +157,8 @@ int main(int argc, char** argv )
   //memory deallocation on DEVICE
   cudaFree(d_imageIn);
   cudaFree(d_imageOut);
+  cudaFree(d_imageX);
+  cudaFree(d_imageY);
 
   return 0;
 }
