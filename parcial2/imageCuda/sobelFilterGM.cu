@@ -192,6 +192,7 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageSobel;
 
+  printf("**Global memory implementation**\n");
   cout<<"Image size = "<< image.size() << endl;
   printf("Grayscale time\n");
   printf("  CPU = %f s\n",timeCPU_GS);
