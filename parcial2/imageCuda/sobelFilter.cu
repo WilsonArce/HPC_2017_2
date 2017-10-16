@@ -83,9 +83,6 @@ int main(int argc, char** argv )
   //elements for SOBEL filter
   unsigned char *h_imageSobel, *d_imageX, *d_imageY, *d_imageSobel;
 
-  //element for openCV transformations
-  Mat src_gray;
-  Mat grad;
   //char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
   int delta = 0;
@@ -102,6 +99,10 @@ int main(int argc, char** argv )
   }
 
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ///Element for openCV transformations
+  Mat src_gray;
+  Mat grad;
+
   /// Convert it to gray
   cvtColor( image, src_gray, CV_BGR2GRAY );
 
