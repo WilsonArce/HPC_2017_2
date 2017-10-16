@@ -18,8 +18,8 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   }
 }
 
-__global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgX, unsigned char *imgY, \
-  unsigned char *imgFiltered, int cols, int rows){
+__global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
+  unsigned char *imgX, unsigned char *imgY, int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
@@ -144,7 +144,7 @@ int main(int argc, char** argv )
   cudaDeviceSynchronize();//CUDA threads sincronization
 
   //passing result SOBEL data from DEVICE to HOST
-  cudaMemcpy(h_imageSobel, d_imageY, imgOutSize, cudaMemcpyDeviceToHost);
+  cudaMemcpy(h_imageSobel, d_imageSobel, imgOutSize, cudaMemcpyDeviceToHost);
 
   //
   Mat imageOut;
