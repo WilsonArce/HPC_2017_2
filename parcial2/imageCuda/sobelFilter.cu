@@ -76,10 +76,10 @@ int main(int argc, char** argv )
 {
 
   //elements for GRAYSCALE filter
-  unsigned char *h_imageIn, *h_imageOut, *d_imageIn, *d_imageOut;
+  unsigned char *h_imageIn, *h_imageOut, *d_imageIn, *d_imageGray;
 
   //elements for SOBEL filter
-  unsigned char *d_imageGray, *d_imageX, *d_imageY, *d_imageFiltered;
+  unsigned char *d_imageX, *d_imageY, *d_imageFiltered;
 
   //cudaError_t error = cudaSuccess;
   Mat image;
@@ -105,10 +105,9 @@ int main(int argc, char** argv )
 
   //allocation of memory for elements of GRAYSCALE filter ON DEVICE
   cudaMalloc((void**)&d_imageIn, imgInSize);
-  cudaMalloc((void**)&d_imageOut, imgOutSize);
+  cudaMalloc((void**)&d_imageGray, imgOutSize);
 
   //allocation of memory for elements of SOBEL filter ON DEVICE
-  cudaMalloc((void**)&d_imageGray, imgOutSize);
   cudaMalloc((void**)&d_imageX, imgOutSize);
   cudaMalloc((void**)&d_imageY, imgOutSize);
   cudaMalloc((void**)&d_imageFiltered, imgOutSize);
@@ -131,13 +130,11 @@ int main(int argc, char** argv )
   dim3 blockDim(ceil(cols/float(threads)), ceil(rows/float(threads)));
 
   //CUDA grayscale kernel call
-  gpuGrayScale<<<blockDim, numThreads>>>(d_imageIn, d_imageOut, cols, rows);
+  gpuGrayScale<<<blockDim, numThreads>>>(d_imageIn, d_imageGray, cols, rows);
   cudaDeviceSynchronize();//CUDA threads sincronization
 
   //passing result GRAYSCALE data from DEVICE to HOST
-  cudaMemcpy(h_imageOut, d_imageOut, imgOutSize, cudaMemcpyDeviceToHost);
-
-  cudaMemcpy(d_imageGray, h_imageOut, imgInSize, cudaMemcpyHostToDevice);
+  cudaMemcpy(h_imageOut, d_imageGray, imgOutSize, cudaMemcpyDeviceToHost);
 
   //CUDA sobel filter call
   gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageFiltered, d_imageX, d_imageY, cols, rows);
@@ -151,7 +148,7 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageOut;
 
-  cout << imageOut.channels() << endl << sizeof(d_imageOut)*sizeof(unsigned char) << endl;
+  cout << imageOut.channels() << endl << sizeof(d_imageGray)*sizeof(unsigned char) << endl;
 
   imwrite("imageOut.jpg", imageOut);
 
@@ -159,7 +156,7 @@ int main(int argc, char** argv )
 
   //memory deallocation on DEVICE
   cudaFree(d_imageIn);
-  cudaFree(d_imageOut);
+  cudaFree(d_imageGray);
   cudaFree(d_imageX);
   cudaFree(d_imageY);
 
