@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=imgTransform
-#SBATCH --output=res_imgTransform.txt
+#SBATCH --output=res_imgTransform
 #SBATCH --ntasks=5
 #SBATCH --nodes=5
 #SBATCH --gres=gpu:1
