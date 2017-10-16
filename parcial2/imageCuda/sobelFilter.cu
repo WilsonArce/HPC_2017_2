@@ -83,6 +83,14 @@ int main(int argc, char** argv )
   //elements for SOBEL filter
   unsigned char *h_imageSobel, *d_imageX, *d_imageY, *d_imageSobel;
 
+  //element for openCV transformations
+  Mat src_gray;
+  Mat grad;
+  //char* window_name = "Sobel Demo - Simple Edge Detector";
+  int scale = 1;
+  int delta = 0;
+  int ddepth = CV_16S;
+
   //cudaError_t error = cudaSuccess;
   Mat image;
   image = imread( argv[1], 1 );
@@ -92,6 +100,28 @@ int main(int argc, char** argv )
     printf("usage: DisplayImage <Image_Path>\n");
     return -1;
   }
+
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  /// Convert it to gray
+  cvtColor( image, src_gray, CV_BGR2GRAY );
+
+  /// Generate grad_x and grad_y
+  Mat grad_x, grad_y;
+  Mat abs_grad_x, abs_grad_y;
+
+  /// Gradient X
+  //Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
+  Sobel( src_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
+  convertScaleAbs( grad_x, abs_grad_x );
+
+  /// Gradient Y
+  //Scharr( src_gray, grad_y, ddepth, 0, 1, scale, delta, BORDER_DEFAULT );
+  Sobel( src_gray, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );
+  convertScaleAbs( grad_y, abs_grad_y );
+
+  /// Total Gradient (approximate)
+  addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   //image size cols and rows
   int cols = image.cols;
@@ -160,7 +190,7 @@ int main(int argc, char** argv )
   printf("Grayscale GPU time = %f s\n",timeGPU_GS);
   printf("Sobel filter GPU time = %f s\n",timeGPU_SB);
 
-  imwrite("imageOut.jpg", imageOut);
+  imwrite("imageOut.jpg", grad);
 
   //waitKey(0);
 
