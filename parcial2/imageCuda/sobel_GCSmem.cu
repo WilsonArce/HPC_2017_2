@@ -18,16 +18,18 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   }
 }
 
-__constant__ int d_xFilter[9];
-__constant__ int d_yFilter[9];
+//__constant__ int d_xFilter[9];
+//__constant__ int d_yFilter[9];
 
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
   unsigned char *imgX, unsigned char *imgY, int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  __shared__ unsigned char grayImage[sizeof(unsigned char) * cols * rows];
-  grayImage = imgGray;
+  __shared__ int d_xFilter[9];
+  __shared__ int d_yFilter[9];
+  d_xFilter[9] = {-1,0,1,-2,0,2,-1,0,1};
+  d_yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
@@ -44,8 +46,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 						sumx += 0;
 						sumy += 0;
 					}else{
-						sumx += grayImage[ci * cols + cj] * d_xFilter[y * sbCols + x];
-						sumy += grayImage[ci * cols + cj] * d_yFilter[y * sbCols + x];
+						sumx += imgGray[ci * cols + cj] * d_xFilter[y * sbCols + x];
+						sumy += imgGray[ci * cols + cj] * d_yFilter[y * sbCols + x];
 					}
 					cj++;
 				}
@@ -148,11 +150,11 @@ int main(int argc, char** argv )
   cudaMalloc((void**)&d_imageGray, imgOutSize);
 
   //int h_xFilter[9], h_yFilter[9];
-  int h_xFilter[9] = {-1,0,1,-2,0,2,-1,0,1};
-  int h_yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
+  //int h_xFilter[9] = {-1,0,1,-2,0,2,-1,0,1};
+  //int h_yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
 
-  cudaMemcpyToSymbol(d_xFilter, h_xFilter, 9*sizeof(int));
-  cudaMemcpyToSymbol(d_yFilter, h_yFilter, 9*sizeof(int));
+  //cudaMemcpyToSymbol(d_xFilter, h_xFilter, 9*sizeof(int));
+  //cudaMemcpyToSymbol(d_yFilter, h_yFilter, 9*sizeof(int));
 
   //allocation of memory for elements of SOBEL filter ON HOST
   h_imageSobel = (unsigned char*)malloc(imgOutSize);
