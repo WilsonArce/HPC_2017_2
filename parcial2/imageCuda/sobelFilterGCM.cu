@@ -200,7 +200,7 @@ int main(int argc, char** argv )
   imageOut.data = h_imageSobel;
 
   cout<<"Image size = "<< image.size() << endl;
-  printf("Grayscale time\n");
+  printf("Global n constant memory\nGrayscale time\n");
   printf("  CPU = %f s\n",timeCPU_GS);
   printf("  GPU = %f s\n",timeGPU_GS);
   printf("Sobel filter time\n");

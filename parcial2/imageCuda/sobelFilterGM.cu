@@ -194,15 +194,15 @@ int main(int argc, char** argv )
 
   //printf("**Global memory implementation**\n");
   cout<<"Image size = "<< image.size() << endl;
-  printf("Grayscale time\n");
+  printf("Global memory\nGrayscale time\n");
   printf("  CPU = %f s\n",timeCPU_GS);
   printf("  GPU = %f s\n",timeGPU_GS);
   printf("Sobel filter time\n");
   printf("  CPU = %f s\n",timeCPU_SB);
   printf("  GPU = %f s\n",timeGPU_SB);
 
-  //imwrite("images/imageSobel_gpu.jpg", imageOut);
-  //imwrite("images/imageSobel_opCV.jpg", grad);
+  imwrite("images/imageSobel_gpu.jpg", imageOut);
+  imwrite("images/imageSobel_opCV.jpg", grad);
 
   //waitKey(0);
 
