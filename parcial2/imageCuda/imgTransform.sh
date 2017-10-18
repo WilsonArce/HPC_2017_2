@@ -14,8 +14,8 @@ export CUDA_VISIBLE_DEVICES=0
 FILES=images/*
 
 for f in $FILES
-file=${f##*/}
 do
+  file=${f##*/}
   echo -n ${file%.*} = [
   for i in {1..3};
   do
