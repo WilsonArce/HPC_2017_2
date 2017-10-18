@@ -19,9 +19,9 @@ do
   for i in {1..3};
   do
     
-    if [ $i -gt 3 ]
+    if [ $i -lt 3 ]
     then
-      eho "${f%.*},"
+      eho ${f%.*}
     fi
   done
   echo "]"
