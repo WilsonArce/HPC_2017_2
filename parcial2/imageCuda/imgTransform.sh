@@ -20,7 +20,7 @@ do
   echo -n ${file%.*} = [
   for ((i = 1; i <= n; i++));
   do
-    ./sobelFilterGCM $f
+    ./sobel_GCmem $f
     if [ $i -lt $n ]
     then
       echo -n ","
