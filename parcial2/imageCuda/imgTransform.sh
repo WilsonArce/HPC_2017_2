@@ -13,5 +13,6 @@ export CUDA_VISIBLE_DEVICES=0
 
 for i in {1..10};
 do
+  echo "Iteration $i"
   ./sobelFilterGCM images/image10k.jpg
 done
