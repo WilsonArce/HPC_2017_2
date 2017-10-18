@@ -11,8 +11,18 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRAR
 
 export CUDA_VISIBLE_DEVICES=0
 
-for i in {1..3};
+FILES = images/*
+
+for f in FILES
 do
-  echo "Iteration $i"
-  ./sobelFilterGCM images/image10k.jpg
+  echo "$f = ["
+  for i in {1..3};
+  do
+    ./sobelFilterGCM images/image10k.jpg
+    if [$i < 3]
+    then
+      echo ","
+    fi
+  done
+  echo "]"
 done

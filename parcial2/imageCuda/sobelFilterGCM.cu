@@ -199,16 +199,16 @@ int main(int argc, char** argv )
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageSobel;
 
-  cout<<"Image size = "<< image.size() << endl;
-  printf("Global n constant memory\nGrayscale time\n");
-  printf("  CPU = %f s\n",timeCPU_GS);
-  printf("  GPU = %f s\n",timeGPU_GS);
-  printf("Sobel filter time\n");
-  printf("  CPU = %f s\n",timeCPU_SB);
-  printf("  GPU = %f s\n",timeGPU_SB);
+  //cout<<"Image size = "<< image.size() << endl;
+  //printf("Global n constant memory\nGrayscale time\n");
+  //printf("  CPU = %f s\n",timeCPU_GS);
+  //printf("  GPU = %f s\n",timeGPU_GS);
+  //printf("Sobel filter time\n");
+  //printf("  CPU = %f s\n",timeCPU_SB);
+  printf("%f",timeGPU_SB);
 
-  imwrite("images/imageSobel_gpu.jpg", imageOut);
-  imwrite("images/imageSobel_opCV.jpg", grad);
+  //imwrite("imageSobel_gpu.jpg", imageOut);
+  //imwrite("imageSobel_opCV.jpg", grad);
 
   //waitKey(0);
 
