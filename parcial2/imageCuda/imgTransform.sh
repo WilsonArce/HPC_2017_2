@@ -19,7 +19,7 @@ do
   for i in {1..3};
   do
     
-    if [$i < 3]
+    if [ $i -gt 3 ]
     then
       echo "$f,"
     fi
