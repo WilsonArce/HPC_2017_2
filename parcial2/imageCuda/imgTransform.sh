@@ -14,15 +14,16 @@ export CUDA_VISIBLE_DEVICES=0
 FILES=images/*
 
 for f in $FILES
+f=${f##*/}
 do
   echo "${f%.*} = ["
   for i in {1..3};
   do
     
-    if [ $i -lt 3 ]
+    if [ $i -lt 4 ]
     then
-      echo ${f%.*}
+      echo -n ${f%.*}
     fi
   done
-  echo "]"
+  echo -n "]"
 done
