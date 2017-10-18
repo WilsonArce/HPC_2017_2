@@ -15,13 +15,13 @@ FILES=images/*
 
 for f in $FILES
 do
-  echo "$f = ["
+  echo "${f%.*} = ["
   for i in {1..3};
   do
     
     if [ $i -gt 3 ]
     then
-      echo "$f,"
+      eho "${f%.*},"
     fi
   done
   echo "]"
