@@ -11,6 +11,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRAR
 
 export CUDA_VISIBLE_DEVICES=0
 
-./sobelFilterGM images/image1k.jpg
-./sobelFilterGM images/image1k_2.jpg
-./sobelFilterGM images/image4k.jpg
+./sobelFilterGCM images/image1k.jpg
+./sobelFilterGCM images/image1k_2.jpg
+./sobelFilterGCM images/image4k.jpg
