@@ -11,7 +11,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRAR
 
 export CUDA_VISIBLE_DEVICES=0
 
-FILES = images/*
+FILES=images/*
 
 for f in $FILES
 do
