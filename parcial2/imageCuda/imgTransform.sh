@@ -18,10 +18,10 @@ do
   echo "$f = ["
   for i in {1..3};
   do
-    ./sobelFilterGCM images/image10k.jpg
+    
     if [$i < 3]
     then
-      echo ","
+      echo "$f,"
     fi
   done
   echo "]"
