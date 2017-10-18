@@ -21,7 +21,7 @@ do
     
     if [ $i -lt 3 ]
     then
-      eho ${f%.*}
+      echo ${f%.*}
     fi
   done
   echo "]"
