@@ -11,8 +11,8 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRAR
 
 export CUDA_VISIBLE_DEVICES=0
 
-for i in {1..10};
+for i in {1..3};
 do
   echo "Iteration $i"
-  ./sobelFilterGM images/image8k.jpg
+  ./sobelFilterGM images/image10k.jpg
 done
