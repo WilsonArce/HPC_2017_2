@@ -18,7 +18,7 @@ for f in $FILES
 do
   file=${f##*/}
   echo -n ${file%.*} = [
-  for i in {1..$n};
+  for i in $n;
   do
     ./sobelFilterGCM $f
     if [ $i -lt $n ]
