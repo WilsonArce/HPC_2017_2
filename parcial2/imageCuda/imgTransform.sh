@@ -13,7 +13,7 @@ export CUDA_VISIBLE_DEVICES=0
 
 FILES = images/*
 
-for f in FILES
+for f in $FILES
 do
   echo "$f = ["
   for i in {1..3};
