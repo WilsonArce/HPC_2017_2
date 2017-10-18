@@ -13,5 +13,5 @@ export CUDA_VISIBLE_DEVICES=0
 
 for i in {1..10};
 do
-  ./sobelFilterGCM images/image4k.jpg
+  ./sobelFilterGCM images/image10k.jpg
 done
