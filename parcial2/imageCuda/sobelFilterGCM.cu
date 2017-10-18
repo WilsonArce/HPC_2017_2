@@ -204,7 +204,7 @@ int main(int argc, char** argv )
   printf("  CPU = %f s\n",timeCPU_GS);
   printf("  GPU = %f s\n",timeGPU_GS);*/
   printf("Sobel filter time\n");
-  printf("  CPU = %f s\n",timeCPU_SB);
+  //printf("  CPU = %f s\n",timeCPU_SB);
   printf("  GPU = %f s\n",timeGPU_SB);
 
   imwrite("images/imageSobel_gpu.jpg", imageOut);
