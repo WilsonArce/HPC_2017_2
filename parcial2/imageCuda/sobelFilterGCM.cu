@@ -18,7 +18,7 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   }
 }
 
-__constant__ int xFilter[9] = {-1,0,1,-2,0,2,-1,0,1}, int yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
+__constant__ int d_xFilter[9], int d_yFilter[9];
 
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
   unsigned char *imgX, unsigned char *imgY, int cols, int rows){
@@ -40,8 +40,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 						sumx += 0;
 						sumy += 0;
 					}else{
-						sumx += imgGray[ci * cols + cj] * xFilter[y * sbCols + x];
-						sumy += imgGray[ci * cols + cj] * yFilter[y * sbCols + x];
+						sumx += imgGray[ci * cols + cj] * d_xFilter[y * sbCols + x];
+						sumy += imgGray[ci * cols + cj] * d_yFilter[y * sbCols + x];
 					}
 					cj++;
 				}
@@ -142,6 +142,13 @@ int main(int argc, char** argv )
   //allocation of memory for elements of GRAYSCALE filter ON DEVICE
   cudaMalloc((void**)&d_imageIn, imgInSize);
   cudaMalloc((void**)&d_imageGray, imgOutSize);
+
+  int h_xFilter[9], h_yFilter[9];
+  xFilter[9] = {-1,0,1,-2,0,2,-1,0,1};
+  yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
+
+  cudaMemcpyToSymbol(d_xFilter, h_xFilter, 9*sizeof(int));
+  cudaMemcpyToSymbol(d_yFilter, h_yFilter, 9*sizeof(int));
 
   //allocation of memory for elements of SOBEL filter ON HOST
   h_imageSobel = (unsigned char*)malloc(imgOutSize);
