@@ -15,7 +15,7 @@ FILES=images/*
 
 for f in $FILES
 do
-  echo ${f%*basename.*} = [
+  echo -n ${f%basename.*} = [
   for i in {1..3};
   do
     
@@ -24,5 +24,5 @@ do
       echo -n ${f%.*}
     fi
   done
-  echo -n "]"
+  echo "]"
 done
