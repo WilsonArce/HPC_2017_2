@@ -14,9 +14,8 @@ export CUDA_VISIBLE_DEVICES=0
 FILES=images/*
 
 for f in $FILES
-f=${f##*/}
 do
-  echo "${f%.*} = ["
+  echo ${f%*basename.*}) = [
   for i in {1..3};
   do
     
