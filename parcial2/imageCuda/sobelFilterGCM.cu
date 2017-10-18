@@ -18,14 +18,12 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   }
 }
 
+__constant__ int xFilter[9] = {-1,0,1,-2,0,2,-1,0,1}, int yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
+
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
   unsigned char *imgX, unsigned char *imgY, int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
-
-  __constant__ int xFilter[9], int yFilter[9];
-  xFilter = {-1,0,1,-2,0,2,-1,0,1};
-	yFilter = {-1,-2,-1,0,0,0,1,2,1};
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
