@@ -15,7 +15,7 @@ FILES=images/*
 
 for f in $FILES
 do
-  echo ${f%*basename.*}) = [
+  echo ${f%*basename.*} = [
   for i in {1..3};
   do
     
