@@ -26,12 +26,6 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  //__shared__ int d_xFilter[9];
-  //__shared__ int d_yFilter[9];
-
-  //d_xFilter = {-1,0,1,-2,0,2,-1,0,1};
-  //d_yFilter = {-1,-2,-1,0,0,0,1,2,1};
-
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
 
