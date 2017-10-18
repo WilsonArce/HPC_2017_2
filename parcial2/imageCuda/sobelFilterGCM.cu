@@ -144,9 +144,9 @@ int main(int argc, char** argv )
   cudaMalloc((void**)&d_imageIn, imgInSize);
   cudaMalloc((void**)&d_imageGray, imgOutSize);
 
-  int h_xFilter[9], h_yFilter[9];
-  h_xFilter[9] = {-1,0,1,-2,0,2,-1,0,1};
-  h_yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
+  //int h_xFilter[9], h_yFilter[9];
+  int h_xFilter[9] = {-1,0,1,-2,0,2,-1,0,1};
+  int h_yFilter[9] = {-1,-2,-1,0,0,0,1,2,1};
 
   cudaMemcpyToSymbol(d_xFilter, h_xFilter, 9*sizeof(int));
   cudaMemcpyToSymbol(d_yFilter, h_yFilter, 9*sizeof(int));
