@@ -20,7 +20,7 @@ do
   for i in {1..3};
   do
     ./sobelFilterGCM $f
-    if [ $i -lt 4 ]
+    if [ $i -lt 3 ]
     then
       echo -n ","
     fi
