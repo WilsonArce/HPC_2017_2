@@ -18,7 +18,8 @@ __global__ void gpuGrayScale(unsigned char *imgIn, unsigned char *imgOut, int co
   }
 }
 
-__constant__ int d_xFilter[9], int d_yFilter[9];
+__constant__ int d_xFilter[9];
+__constant__ int d_yFilter[9];
 
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
   unsigned char *imgX, unsigned char *imgY, int cols, int rows){
