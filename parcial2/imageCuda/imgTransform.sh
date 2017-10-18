@@ -14,3 +14,4 @@ export CUDA_VISIBLE_DEVICES=0
 ./sobelFilterGCM images/image1k.jpg
 ./sobelFilterGCM images/image1k_2.jpg
 ./sobelFilterGCM images/image4k.jpg
+./sobelFilterGCM images/image8k.jpg
