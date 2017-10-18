@@ -19,10 +19,10 @@ do
   echo -n ${file%.*} = [
   for i in {1..3};
   do
-    
+    ./sobelFilterGCM $f
     if [ $i -lt 4 ]
     then
-      echo -n ${file%.*}
+      echo -n ","
     fi
   done
   echo "]"
