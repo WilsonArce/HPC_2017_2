@@ -12,13 +12,13 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64/${LD_LIBRARY_PATH:+:${LD_LIBRAR
 export CUDA_VISIBLE_DEVICES=0
 
 FILES=images/*
-n=10
+n=5
 
 for f in $FILES
 do
   file=${f##*/}
   echo -n ${file%.*} = [
-  for i in $n;
+  for ((i = 1; i <= n; i++));
   do
     ./sobelFilterGCM $f
     if [ $i -lt $n ]
