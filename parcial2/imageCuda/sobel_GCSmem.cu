@@ -84,7 +84,7 @@ int main(int argc, char** argv )
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
 
   //elements for SOBEL filter
-  unsigned char *h_imageSobel, *d_imageSobel,*d_imageX, *d_imageY,
+  unsigned char *h_imageSobel, *d_imageSobel,*d_imageX, *d_imageY;
 
   //char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
