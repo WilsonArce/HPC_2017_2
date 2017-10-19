@@ -184,7 +184,10 @@ int main(int argc, char** argv )
 
   //passing result GRAYSCALE data from DEVICE to HOST
   cudaMemcpy(h_imageGray, d_imageGray, imgOutSize, cudaMemcpyDeviceToHost);
-
+  //++++++++
+  cudaMemcpy(d_imageX, h_imageGray, imgOutSize, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_imageY, h_imageGray, imgOutSize, cudaMemcpyHostToDevice);
+  //++++++++
   clock_t startGPU_SB = clock();
   //CUDA sobel filter call
   gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, cols, rows);
