@@ -60,7 +60,10 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				}else{
 					d_imageX[i * cols + j] = sumx;
 				}
-			}
+      }
+      
+      __syncthreads();
+
 			if(sumy > 255){
 				d_imageY[i * cols + j] = 255;
 			}else{
@@ -69,7 +72,10 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				}else{
 					d_imageY[i * cols + j] = sumy;
 				}
-			}
+      }
+      
+      __syncthreads();
+
 			imgFiltered[i * cols + j] = sqrt(powf(d_imageX[i * cols + j],2) + powf(d_imageY[i * cols + j],2));
 		}
 	//}
