@@ -26,8 +26,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  unsigned char *d_imageX = imgGray;
-  unsigned char *d_imageY = imgGray;
+  __shared__ unsigned char *d_imageX = imgGray;//declarated      for        peformance
+  __shared__ unsigned char *d_imageY = imgGray;//           here    improve
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
@@ -131,7 +131,7 @@ int main(int argc, char** argv )
   timeCPU_SB = ((double)(clock() - startCPU_SB))/CLOCKS_PER_SEC;
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  //image size cols and rows
+  //image size, cols and rows
   int cols = image.cols;
   int rows = image.rows;
 
@@ -187,10 +187,7 @@ int main(int argc, char** argv )
 
   //passing result GRAYSCALE data from DEVICE to HOST
   cudaMemcpy(h_imageGray, d_imageGray, imgOutSize, cudaMemcpyDeviceToHost);
-  //++++++++
-  //cudaMemcpy(d_imageX, h_imageGray, imgOutSize, cudaMemcpyHostToDevice);
-  //cudaMemcpy(d_imageY, h_imageGray, imgOutSize, cudaMemcpyHostToDevice);
-  //++++++++
+
   clock_t startGPU_SB = clock();
   //CUDA sobel filter call
   gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, cols, rows);
