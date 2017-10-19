@@ -158,8 +158,8 @@ int main(int argc, char** argv )
   h_imageSobel = (unsigned char*)malloc(imgOutSize);
 
   //allocation of memory for elements of SOBEL filter ON DEVICE
-  //cudaMalloc((void**)&d_imageX, imgOutSize);
-  //cudaMalloc((void**)&d_imageY, imgOutSize);
+  cudaMalloc((void**)&d_imageX, imgOutSize);
+  cudaMalloc((void**)&d_imageY, imgOutSize);
   cudaMalloc((void**)&d_imageSobel, imgOutSize);
 
   //error = cudaMalloc((void**)&d_imageIn, imgInSize);
