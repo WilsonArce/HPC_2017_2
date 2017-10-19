@@ -22,7 +22,7 @@ __constant__ int d_xFilter[9];
 __constant__ int d_yFilter[9];
 
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
-  unsigned char *imgX, unsigned char *imgY, int cols, int rows){
+  int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
@@ -38,6 +38,9 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				cj = j-1;
 				for(x = 0; x < sbCols; x++){
 					if(ci > 0 || cj > 0){
+						sumx += 0;
+						sumy += 0;
+					}else{
 						sumx += imgGray[ci * cols + cj] * d_xFilter[y * sbCols + x];
 						sumy += imgGray[ci * cols + cj] * d_yFilter[y * sbCols + x];
 					}
@@ -45,24 +48,24 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				}
 			}
 			if(sumx > 255){
-				imgX[i * cols + j] = 255;
+				d_imageX[i * cols + j] = 255;
 			}else{
 				if(sumx < 0){
-					imgX[i * cols + j] = 0;
+					d_imageX[i * cols + j] = 0;
 				}else{
-					imgX[i * cols + j] = sumx;
+					d_imageX[i * cols + j] = sumx;
 				}
 			}
 			if(sumy > 255){
-				imgY[i * cols + j] = 255;
+				d_imageY[i * cols + j] = 255;
 			}else{
 				if(sumy < 0){
-					imgY[i * cols + j] = 0;
+					d_imageY[i * cols + j] = 0;
 				}else{
-					imgY[i * cols + j] = sumy;
+					d_imageY[i * cols + j] = sumy;
 				}
 			}
-			imgFiltered[i * cols + j] = sqrt(powf(imgX[i * cols + j],2) + powf(imgY[i * cols + j],2));
+			imgFiltered[i * cols + j] = sqrt(powf(d_imageX[i * cols + j],2) + powf(d_imageY[i * cols + j],2));
 		}
 	//}
 
@@ -184,7 +187,7 @@ int main(int argc, char** argv )
 
   clock_t startGPU_SB = clock();
   //CUDA sobel filter call
-  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, d_imageX, d_imageY, cols, rows);
+  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, cols, rows);
   cudaDeviceSynchronize();//CUDA threads sincronization
   timeGPU_SB = ((double)(clock() - startGPU_SB))/CLOCKS_PER_SEC;
 
