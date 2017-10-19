@@ -26,8 +26,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  __shared__ unsigned char *d_imageX = imgGray;//declarated      for        peformance
-  __shared__ unsigned char *d_imageY = imgGray;//           here    improve
+  __shared__ unsigned char *d_imageX;// = imgGray;//declarated      for        peformance
+  __shared__ unsigned char *d_imageY;// = imgGray;//           here    improve
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
@@ -190,7 +190,7 @@ int main(int argc, char** argv )
 
   clock_t startGPU_SB = clock();
   //CUDA sobel filter call
-  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, cols, rows);
+  gpuSobelFilter<<<blockDim, numThreads, imgOutSize>>>(d_imageGray, d_imageSobel, cols, rows);
   cudaDeviceSynchronize();//CUDA threads sincronization
   timeGPU_SB = ((double)(clock() - startGPU_SB))/CLOCKS_PER_SEC;
 
