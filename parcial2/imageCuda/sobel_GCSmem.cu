@@ -22,12 +22,12 @@ __constant__ int d_xFilter[9];
 __constant__ int d_yFilter[9];
 
 __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltered, \
-  int cols, int rows){
+  unsigned char *imgX, unsigned char *imgY, int cols, int rows){
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  unsigned char *d_imageX = imgGray;//declarated      for        peformance
-  unsigned char *d_imageY = imgGray;//           here    improve
+  //unsigned char *imgX = imgGray;
+  //unsigned char *imgY = imgGray;
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
@@ -51,24 +51,24 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				}
 			}
 			if(sumx > 255){
-				d_imageX[i * cols + j] = 255;
+				imgX[i * cols + j] = 255;
 			}else{
 				if(sumx < 0){
-					d_imageX[i * cols + j] = 0;
+					imgX[i * cols + j] = 0;
 				}else{
-					d_imageX[i * cols + j] = sumx;
+					imgX[i * cols + j] = sumx;
 				}
 			}
 			if(sumy > 255){
-				d_imageY[i * cols + j] = 255;
+				imgY[i * cols + j] = 255;
 			}else{
 				if(sumy < 0){
-					d_imageY[i * cols + j] = 0;
+					imgY[i * cols + j] = 0;
 				}else{
-					d_imageY[i * cols + j] = sumy;
+					imgY[i * cols + j] = sumy;
 				}
 			}
-			imgFiltered[i * cols + j] = sqrt(powf(d_imageX[i * cols + j],2) + powf(d_imageY[i * cols + j],2));
+			imgFiltered[i * cols + j] = sqrt(powf(imgX[i * cols + j],2) + powf(imgY[i * cols + j],2));
 		}
 	//}
 
@@ -84,7 +84,7 @@ int main(int argc, char** argv )
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
 
   //elements for SOBEL filter
-  unsigned char *h_imageSobel, *d_imageSobel;//*d_imageX, *d_imageY;
+  unsigned char *h_imageSobel, *d_imageSobel, *d_imageX, *d_imageY;
 
   //char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
@@ -158,8 +158,8 @@ int main(int argc, char** argv )
   h_imageSobel = (unsigned char*)malloc(imgOutSize);
 
   //allocation of memory for elements of SOBEL filter ON DEVICE
-  //cudaMalloc((void**)&d_imageX, imgOutSize);
-  //cudaMalloc((void**)&d_imageY, imgOutSize);
+  cudaMalloc((void**)&d_imageX, imgOutSize);
+  cudaMalloc((void**)&d_imageY, imgOutSize);
   cudaMalloc((void**)&d_imageSobel, imgOutSize);
 
   //error = cudaMalloc((void**)&d_imageIn, imgInSize);
@@ -190,7 +190,7 @@ int main(int argc, char** argv )
 
   clock_t startGPU_SB = clock();
   //CUDA sobel filter call
-  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, cols, rows);
+  gpuSobelFilter<<<blockDim, numThreads>>>(d_imageGray, d_imageSobel, d_imageX, d_imageY, cols, rows);
   cudaDeviceSynchronize();//CUDA threads sincronization
   timeGPU_SB = ((double)(clock() - startGPU_SB))/CLOCKS_PER_SEC;
 
@@ -219,8 +219,8 @@ int main(int argc, char** argv )
   cudaFree(d_imageIn);
   cudaFree(d_imageGray);
   cudaFree(d_imageSobel);
-  //cudaFree(d_imageX);
-  //cudaFree(d_imageY);
+  cudaFree(d_imageX);
+  cudaFree(d_imageY);
 
   return 0;
 }
