@@ -210,7 +210,7 @@ int main(int argc, char** argv )
   //printf("  CPU = %f s\n",timeCPU_SB);
   printf("%f",timeGPU_SB);
 
-  imwrite("imageSobel_gpu.jpg", imageOut);
+  imwrite("imageSobel_gpuGCS.jpg", imageOut);
   imwrite("imageSobel_opCV.jpg", grad);
 
   //waitKey(0);
