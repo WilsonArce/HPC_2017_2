@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=imgTransform
 #SBATCH --output=res_imgTransform.txt
-#SBATCH --ntasks=1
-#SBATCH --nodes=2
+#SBATCH --ntasks=3
+#SBATCH --nodes=3
 #SBATCH --gres=gpu:1
 
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
