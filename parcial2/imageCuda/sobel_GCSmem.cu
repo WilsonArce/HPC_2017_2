@@ -84,7 +84,7 @@ int main(int argc, char** argv )
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
 
   //elements for SOBEL filter
-  unsigned char *h_imageSobel, *d_imageX, *d_imageY, *d_imageSobel;
+  unsigned char *h_imageSobel, *d_imageSobel;//*d_imageX, *d_imageY,
 
   //char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
@@ -158,8 +158,8 @@ int main(int argc, char** argv )
   h_imageSobel = (unsigned char*)malloc(imgOutSize);
 
   //allocation of memory for elements of SOBEL filter ON DEVICE
-  cudaMalloc((void**)&d_imageX, imgOutSize);
-  cudaMalloc((void**)&d_imageY, imgOutSize);
+  //cudaMalloc((void**)&d_imageX, imgOutSize);
+  //cudaMalloc((void**)&d_imageY, imgOutSize);
   cudaMalloc((void**)&d_imageSobel, imgOutSize);
 
   //error = cudaMalloc((void**)&d_imageIn, imgInSize);
