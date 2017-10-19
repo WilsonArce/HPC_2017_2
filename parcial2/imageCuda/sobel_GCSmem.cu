@@ -175,7 +175,7 @@ int main(int argc, char** argv )
   cudaMemcpy(d_imageIn, h_imageIn, imgInSize, cudaMemcpyHostToDevice);
 
   //parameters definition for CUDA kernel
-  int threads = 16;
+  int threads = 32;
   dim3 numThreads(threads, threads);
   dim3 blockDim(ceil(cols/float(threads)), ceil(rows/float(threads)));
 
