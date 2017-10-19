@@ -26,10 +26,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  extern __shared__ unsigned char vertex[];
-
-  unsigned char *d_imageX = &vertex[0];// = imgGray;//declarated      for        peformance
-  unsigned char *d_imageY = &vertex[cols*rows];// = imgGray;//           here    improve
+  __shared__ unsigned char *d_imageX;// = imgGray;//declarated      for        peformance
+  __shared__ unsigned char *d_imageY;// = imgGray;//           here    improve
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
@@ -60,10 +58,7 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				}else{
 					d_imageX[i * cols + j] = sumx;
 				}
-      }
-      
-      __syncthreads();
-
+			}
 			if(sumy > 255){
 				d_imageY[i * cols + j] = 255;
 			}else{
@@ -72,10 +67,7 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				}else{
 					d_imageY[i * cols + j] = sumy;
 				}
-      }
-      
-      __syncthreads();
-
+			}
 			imgFiltered[i * cols + j] = sqrt(powf(d_imageX[i * cols + j],2) + powf(d_imageY[i * cols + j],2));
 		}
 	//}
@@ -218,8 +210,8 @@ int main(int argc, char** argv )
   //printf("  CPU = %f s\n",timeCPU_SB);
   printf("%f",timeGPU_SB);
 
-  imwrite("imageSobel_gpu.jpg", imageOut);
-  imwrite("imageSobel_opCV.jpg", grad);
+  //imwrite("imageSobel_gpu.jpg", imageOut);
+  //imwrite("imageSobel_opCV.jpg", grad);
 
   //waitKey(0);
 
