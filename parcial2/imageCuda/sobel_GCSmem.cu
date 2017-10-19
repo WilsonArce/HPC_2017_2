@@ -26,9 +26,6 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
   int i = blockIdx.y * blockDim.y + threadIdx.y;
   int j = blockIdx.x * blockDim.y + threadIdx.x;
 
-  //unsigned char *imgX = imgGray;
-  //unsigned char *imgY = imgGray;
-
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
 
@@ -84,7 +81,7 @@ int main(int argc, char** argv )
   unsigned char *h_imageIn, *h_imageGray, *d_imageIn, *d_imageGray;
 
   //elements for SOBEL filter
-  unsigned char *h_imageSobel, *d_imageSobel, *d_imageX, *d_imageY;
+  unsigned char *h_imageSobel, *d_imageX, *d_imageY, *d_imageSobel;
 
   //char* window_name = "Sobel Demo - Simple Edge Detector";
   int scale = 1;
@@ -131,7 +128,7 @@ int main(int argc, char** argv )
   timeCPU_SB = ((double)(clock() - startCPU_SB))/CLOCKS_PER_SEC;
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  //image size, cols and rows
+  //image size cols and rows
   int cols = image.cols;
   int rows = image.rows;
 
@@ -210,7 +207,7 @@ int main(int argc, char** argv )
   //printf("  CPU = %f s\n",timeCPU_SB);
   printf("%f",timeGPU_SB);
 
-  imwrite("imageSobel_gpuGCS.jpg", imageOut);
+  imwrite("imageSobel_gpuGCm.jpg", imageOut);
   imwrite("imageSobel_opCV.jpg", grad);
 
   //waitKey(0);
