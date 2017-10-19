@@ -38,7 +38,8 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 				cj = j-1;
 				for(x = 0; x < sbCols; x++){
 					if(ci < 0 || cj < 0){
-						continue;
+						sumx += 0;
+						sumy += 0;
 					}else{
 						sumx += imgGray[ci * cols + cj] * d_xFilter[y * sbCols + x];
 						sumy += imgGray[ci * cols + cj] * d_yFilter[y * sbCols + x];
