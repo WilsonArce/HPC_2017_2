@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/users/wdarce/HPC_2017_2/parcial2/imageCuda
+CMAKE_SOURCE_DIR = /home/users/wdarce/HPC_2017_2/parcial2/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/users/wdarce/HPC_2017_2/parcial2/imageCuda
+CMAKE_BINARY_DIR = /home/users/wdarce/HPC_2017_2/parcial2/src
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -78,11 +67,22 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles /home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/src/CMakeFiles /home/users/wdarce/HPC_2017_2/parcial2/src/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/imageCuda/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DisplayImage_cu
+# Target rules for targets named sobel_GCSmem
 
 # Build rule for target.
-DisplayImage_cu: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DisplayImage_cu
-.PHONY : DisplayImage_cu
+sobel_GCSmem: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sobel_GCSmem
+.PHONY : sobel_GCSmem
 
 # fast build rule for target.
-DisplayImage_cu/fast:
-	$(MAKE) -f CMakeFiles/DisplayImage_cu.dir/build.make CMakeFiles/DisplayImage_cu.dir/build
-.PHONY : DisplayImage_cu/fast
+sobel_GCSmem/fast:
+	$(MAKE) -f CMakeFiles/sobel_GCSmem.dir/build.make CMakeFiles/sobel_GCSmem.dir/build
+.PHONY : sobel_GCSmem/fast
 
 # Help Target
 help:
@@ -129,9 +129,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... DisplayImage_cu"
+	@echo "... edit_cache"
+	@echo "... sobel_GCSmem"
 .PHONY : help
 
 

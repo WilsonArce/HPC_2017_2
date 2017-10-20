@@ -1,4 +1,4 @@
-# Install script for directory: /home/users/wdarce/HPC_2017_2/parcial2/imageCuda
+# Install script for directory: /home/users/wdarce/HPC_2017_2/parcial2/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/users/wdarce/HPC_2017_2/parcial2/imageCuda/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/users/wdarce/HPC_2017_2/parcial2/src/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
