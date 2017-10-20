@@ -14,7 +14,7 @@ export CUDA_VISIBLE_DEVICES=0
 #./sobel_GCSmem images/512x512.jpg
 
 FILES=../images/*
-n=3
+n=20
 
 for f in $FILES
 do
