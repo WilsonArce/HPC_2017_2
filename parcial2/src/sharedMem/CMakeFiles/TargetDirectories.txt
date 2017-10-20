@@ -1,0 +1,3 @@
+/home/users/wdarce/HPC_2017_2/parcial2/src/sharedMem/CMakeFiles/rebuild_cache.dir
+/home/users/wdarce/HPC_2017_2/parcial2/src/sharedMem/CMakeFiles/edit_cache.dir
+/home/users/wdarce/HPC_2017_2/parcial2/src/sharedMem/CMakeFiles/sobel_GCSmem.dir
