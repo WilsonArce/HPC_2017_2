@@ -19,14 +19,12 @@ n=1
 for f in $FILES
 do
   file=${f##*/}
-  #echo -n ${file%.*} = [
   for ((i = 1; i <= n; i++));
   do
     ./sobel_Gmem $f
-    #if [ $i -lt $n ]
-    #then
-    #  echo -n ","
-    #fi
-  #done
-  #echo "]"
+    if [ $i -lt $n ]
+    then
+      echo -n ","
+    fi
+  done
 done
