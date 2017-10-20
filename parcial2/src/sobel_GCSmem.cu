@@ -83,7 +83,7 @@ int main(int argc, char** argv )
   //elements for SOBEL filter
   unsigned char *h_imageSobel, *d_imageX, *d_imageY, *d_imageSobel;
 
-  //char* window_name = "Sobel Demo - Simple Edge Detector";
+  //char* window_name = "Sobel Demo - Simple Edge Detector"
   int scale = 1;
   int delta = 0;
   int ddepth = CV_16S;
