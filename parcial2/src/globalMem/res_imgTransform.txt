@@ -1,6 +1,91 @@
-1200x800 = [0.000170,0.000172,0.000169,0.000172,0.000171]
-14080x7920 = [0.017957,0.015883,0.015883,0.017973,0.015891]
-1600x784 = [0.000188,0.000188,0.000189,0.000188,0.000188]
-512x512 = [0.000046,0.000048,0.000046,0.000047,0.000047]
-7680x5022 = [0.005470,0.005468,0.006184,0.006184,0.006181]
-8000x4500 = [0.005792,0.005787,0.005762,0.005791,0.005786]
+1200x800 = [Image size = [1200 x 800]
+Global memory
+Grayscale time
+  CPU = 0.143638 s
+  GPU = 0.000188 s
+Sobel filter time
+  CPU = 0.056130 s
+  GPU = 0.000156 s
+,Image size = [1200 x 800]
+Global memory
+Grayscale time
+  CPU = 0.111249 s
+  GPU = 0.000188 s
+Sobel filter time
+  CPU = 0.057470 s
+  GPU = 0.000155 s
+,Image size = [1200 x 800]
+Global memory
+Grayscale time
+  CPU = 0.129214 s
+  GPU = 0.000187 s
+Sobel filter time
+  CPU = 0.073559 s
+  GPU = 0.000155 s
+]
+14080x7920 = [Image size = [14080 x 7920]
+Global memory
+Grayscale time
+  CPU = 0.450512 s
+  GPU = 0.012683 s
+Sobel filter time
+  CPU = 1.060721 s
+  GPU = 0.015998 s
+,Image size = [14080 x 7920]
+Global memory
+Grayscale time
+  CPU = 0.476310 s
+  GPU = 0.011185 s
+Sobel filter time
+  CPU = 1.077298 s
+  GPU = 0.014091 s
+,Image size = [14080 x 7920]
+Global memory
+Grayscale time
+  CPU = 0.484580 s
+  GPU = 0.011185 s
+Sobel filter time
+  CPU = 1.061909 s
+  GPU = 0.014049 s
+]
+1600x784 = [Image size = [1600 x 784]
+Global memory
+Grayscale time
+  CPU = 0.119112 s
+  GPU = 0.000228 s
+Sobel filter time
+  CPU = 0.091427 s
+  GPU = 0.000189 s
+,Image size = [1600 x 784]
+Global memory
+Grayscale time
+  CPU = 0.080904 s
+  GPU = 0.000225 s
+Sobel filter time
+  CPU = 0.077708 s
+  GPU = 0.000189 s
+,Image size = [1600 x 784]
+Global memory
+Grayscale time
+  CPU = 0.130984 s
+  GPU = 0.000216 s
+Sobel filter time
+  CPU = 0.081561 s
+  GPU = 0.000189 s
+]
+512x512 = [Image size = [512 x 512]
+Global memory
+Grayscale time
+  CPU = 0.119379 s
+  GPU = 0.000102 s
+Sobel filter time
+  CPU = 0.022393 s
+  GPU = 0.000048 s
+,Image size = [512 x 512]
+Global memory
+Grayscale time
+  CPU = 0.115150 s
+  GPU = 0.000102 s
+Sobel filter time
+  CPU = 0.002646 s
+  GPU = 0.000047 s

@@ -54,45 +54,45 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/users/wdarce/HPC_2017_2/parcial2/src
+CMAKE_SOURCE_DIR = /home/users/wdarce/HPC_2017_2/parcial2/src/globalMem
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/users/wdarce/HPC_2017_2/parcial2/src
+CMAKE_BINARY_DIR = /home/users/wdarce/HPC_2017_2/parcial2/src/globalMem
 
 #=============================================================================
-# Target rules for target CMakeFiles/sobel_GCSmem.dir
+# Target rules for target CMakeFiles/sobel_Gmem.dir
 
 # All Build rule for target.
-CMakeFiles/sobel_GCSmem.dir/all:
-	$(MAKE) -f CMakeFiles/sobel_GCSmem.dir/build.make CMakeFiles/sobel_GCSmem.dir/depend
-	$(MAKE) -f CMakeFiles/sobel_GCSmem.dir/build.make CMakeFiles/sobel_GCSmem.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/users/wdarce/HPC_2017_2/parcial2/src/CMakeFiles --progress-num=1,2 "Built target sobel_GCSmem"
-.PHONY : CMakeFiles/sobel_GCSmem.dir/all
+CMakeFiles/sobel_Gmem.dir/all:
+	$(MAKE) -f CMakeFiles/sobel_Gmem.dir/build.make CMakeFiles/sobel_Gmem.dir/depend
+	$(MAKE) -f CMakeFiles/sobel_Gmem.dir/build.make CMakeFiles/sobel_Gmem.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/users/wdarce/HPC_2017_2/parcial2/src/globalMem/CMakeFiles --progress-num=1,2 "Built target sobel_Gmem"
+.PHONY : CMakeFiles/sobel_Gmem.dir/all
 
 # Include target in all.
-all: CMakeFiles/sobel_GCSmem.dir/all
+all: CMakeFiles/sobel_Gmem.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/sobel_GCSmem.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/src/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sobel_GCSmem.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/src/CMakeFiles 0
-.PHONY : CMakeFiles/sobel_GCSmem.dir/rule
+CMakeFiles/sobel_Gmem.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/src/globalMem/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sobel_Gmem.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/users/wdarce/HPC_2017_2/parcial2/src/globalMem/CMakeFiles 0
+.PHONY : CMakeFiles/sobel_Gmem.dir/rule
 
 # Convenience name for target.
-sobel_GCSmem: CMakeFiles/sobel_GCSmem.dir/rule
+sobel_Gmem: CMakeFiles/sobel_Gmem.dir/rule
 
-.PHONY : sobel_GCSmem
-
-# clean rule for target.
-CMakeFiles/sobel_GCSmem.dir/clean:
-	$(MAKE) -f CMakeFiles/sobel_GCSmem.dir/build.make CMakeFiles/sobel_GCSmem.dir/clean
-.PHONY : CMakeFiles/sobel_GCSmem.dir/clean
+.PHONY : sobel_Gmem
 
 # clean rule for target.
-clean: CMakeFiles/sobel_GCSmem.dir/clean
+CMakeFiles/sobel_Gmem.dir/clean:
+	$(MAKE) -f CMakeFiles/sobel_Gmem.dir/build.make CMakeFiles/sobel_Gmem.dir/clean
+.PHONY : CMakeFiles/sobel_Gmem.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/sobel_Gmem.dir/clean
 
 .PHONY : clean
 
