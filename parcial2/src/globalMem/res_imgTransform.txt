@@ -89,3 +89,62 @@ Grayscale time
 Sobel filter time
   CPU = 0.002646 s
   GPU = 0.000047 s
+,Image size = [512 x 512]
+Global memory
+Grayscale time
+  CPU = 0.133897 s
+  GPU = 0.000103 s
+Sobel filter time
+  CPU = 0.024175 s
+  GPU = 0.000047 s
+]
+7680x5022 = [Image size = [7680 x 5022]
+Global memory
+Grayscale time
+  CPU = 0.201405 s
+  GPU = 0.004442 s
+Sobel filter time
+  CPU = 0.415289 s
+  GPU = 0.005476 s
+,Image size = [7680 x 5022]
+Global memory
+Grayscale time
+  CPU = 0.257913 s
+  GPU = 0.004439 s
+Sobel filter time
+  CPU = 0.420178 s
+  GPU = 0.005478 s
+,Image size = [7680 x 5022]
+Global memory
+Grayscale time
+  CPU = 0.256698 s
+  GPU = 0.004434 s
+Sobel filter time
+  CPU = 0.423223 s
+  GPU = 0.005485 s
+]
+8000x4500 = [Image size = [8000 x 4500]
+Global memory
+Grayscale time
+  CPU = 0.244841 s
+  GPU = 0.004156 s
+Sobel filter time
+  CPU = 0.398998 s
+  GPU = 0.005136 s
+,Image size = [8000 x 4500]
+Global memory
+Grayscale time
+  CPU = 0.248626 s
+  GPU = 0.004170 s
+Sobel filter time
+  CPU = 0.393702 s
+  GPU = 0.005139 s
+,Image size = [8000 x 4500]
+Global memory
+Grayscale time
+  CPU = 0.246235 s
+  GPU = 0.004162 s
+Sobel filter time
+  CPU = 0.401617 s
+  GPU = 0.005136 s
+]
