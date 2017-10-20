@@ -187,7 +187,6 @@ int main(int argc, char** argv )
   //passing result SOBEL data from DEVICE to HOST
   cudaMemcpy(h_imageSobel, d_imageSobel, imgOutSize, cudaMemcpyDeviceToHost);
 
-  //
   Mat imageOut;
   imageOut.create(rows, cols, CV_8UC1);
   imageOut.data = h_imageSobel;
