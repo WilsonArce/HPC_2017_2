@@ -13,7 +13,7 @@ export CUDA_VISIBLE_DEVICES=0
 
 #./sobel_GCSmem images/512x512.jpg
 
-FILES=images/*
+FILES=../images/*
 n=5
 
 for f in $FILES
@@ -22,7 +22,7 @@ do
   echo -n ${file%.*} = [
   for ((i = 1; i <= n; i++));
   do
-    ./sobel_GCSmem $f
+    ./sobel_GCmem $f
     if [ $i -lt $n ]
     then
       echo -n ","
