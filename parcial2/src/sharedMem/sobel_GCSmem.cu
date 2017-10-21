@@ -28,6 +28,12 @@ __global__ void gpuSobelFilter(unsigned char *imgGray, unsigned char *imgFiltere
 
   int sbCols, sbRows, sumx, sumy, x, y, ci, cj;
   sbCols = sbRows = 3;
+  
+  //extern __shared__ unsigned char d_imgGray[];
+  
+  //d_imgGray[i * cols + j] = imgGray[i * cols + j];
+  
+  //__syncthreads();
 
   //for(i = 0; i < rows; i++){
 	//	for(j = 0; j < cols; j++){

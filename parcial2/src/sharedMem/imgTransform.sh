@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=imgTransform
 #SBATCH --output=res_imgTransform.txt
-#SBATCH --ntasks=3
-#SBATCH --nodes=3
+#SBATCH --ntasks=2
+#SBATCH --nodes=2
 #SBATCH --gres=gpu:1
 
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
@@ -14,7 +14,7 @@ export CUDA_VISIBLE_DEVICES=0
 #./sobel_GCSmem images/512x512.jpg
 
 FILES=../images/*
-n=20
+n=10
 
 for f in $FILES
 do
